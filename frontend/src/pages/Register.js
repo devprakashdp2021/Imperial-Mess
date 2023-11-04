@@ -6,6 +6,7 @@ import {
   Input,
   Select,
 } from 'antd';
+import Link from 'antd/es/typography/Link';
 
 
 const formItemLayout = {
@@ -26,6 +27,12 @@ const formItemLayout = {
     },
   },
 };
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16,
+  },
+};
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -38,7 +45,7 @@ const tailFormItemLayout = {
     },
   },
 };
-const Register = () => {
+const Register = ({handleLoginNow}) => {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -46,6 +53,7 @@ const Register = () => {
 
 
   return (
+
     <Form
       {...formItemLayout}
       form={form}
@@ -60,17 +68,30 @@ const Register = () => {
       }}
       scrollToFirstError
     >
+    <Form.Item 
+        name="name"
+        label="Name"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your name!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
       <Form.Item
         name="gmail"
         label="G-suite ID"
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: 'The input is not valid g-suite id',
           },
           {
             required: true,
-            message: 'Please input your E-mail!',
+            message: 'Please input your g-suite id!',
           },
         ]}
       >
@@ -91,7 +112,17 @@ const Register = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item label="Role">
+      <Form.Item 
+      name="role"
+      label="Role"
+      rules={[
+        {
+          required: true,
+          message: 'Please select your role!',
+        },
+      ]}
+      hasFeedback
+      >
         <Select>
           <Select.Option value="demo">Student</Select.Option>
           <Select.Option value="demo">Accountant</Select.Option>
@@ -100,7 +131,17 @@ const Register = () => {
        </Select>
       </Form.Item>
 
-      <Form.Item label="Hostel">
+      <Form.Item 
+      style={{marginBottom: "10px"}}
+      name="hostel"
+      label="Hostel"
+      rules={[
+        {
+          required: true,
+          message: 'Please select your hostel!',
+        },
+      ]}
+      hasFeedback>
         <Select>
           <Select.Option value="demo">Tilak</Select.Option>
           <Select.Option value="demo">Malviya</Select.Option>
@@ -110,12 +151,16 @@ const Register = () => {
        </Select>
       </Form.Item>
       
-      <Form.Item {...tailFormItemLayout}>
+      <Form.Item {...tailFormItemLayout}> 
         <Button type="primary" htmlType="submit">
           Register
         </Button>
+        <br />
+        Or <Link to="" onClick={handleLoginNow}>Login!</Link>
+        
       </Form.Item>
     </Form>
+    
   );
 };
 export default Register;
