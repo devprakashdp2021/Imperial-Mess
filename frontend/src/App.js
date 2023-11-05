@@ -8,7 +8,7 @@ import Student from './pages/Student';
 function App() {
   const {loading}=useSelector((state)=>state.loaders);
   return (
-    <div>
+    <div className='App'>
    {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>

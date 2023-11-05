@@ -12,8 +12,8 @@ function ProtectedRoute({children}){
     const dispatch =useDispatch();
     const getCurrentUser=async()=>{
     try{
-        console.log('reach here');
-        dispatch(ShowLoading);
+        console.log('reached protected route');
+        dispatch(ShowLoading());
         const response=await GetCurrentUser();
         dispatch(HideLoading());
         if(response.success){

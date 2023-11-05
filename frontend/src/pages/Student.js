@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import { Button, Flex, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import RegisterComplaints from "../components/RegisterComplaints";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import ViewMessMenu from "../components/ViewMessMenu";
 import RateDailyMeal from "../components/RateDailyMeal";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [option, setOption] = useState('1');
-  function handleLogout(event){
-      localStorage.removeItem("token");
-      navigate("/login");
+  const [option, setOption] = useState("1");
+  function handleLogout(event) {
+    localStorage.removeItem("token");
+    navigate("/login");
   }
-  function handleChangeOption(event){
-    console.log(event.key)
-    setOption(event.key)
+  function handleChangeOption(event) {
+    console.log(event.key);
+    setOption(event.key);
   }
   return (
-    <Layout style={{ height: "100%" }}>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -50,7 +50,6 @@ const Student = () => {
             label: item,
           }))}
         />
-       
       </Sider>
       <Layout>
         <Header
@@ -59,8 +58,14 @@ const Student = () => {
             background: colorBgContainer,
           }}
         >
-            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
+          <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
+          <Button
+            style={{ float: "right", margin: "15px" }}
+            type="primary"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </Header>
         <Content
           style={{
@@ -75,19 +80,10 @@ const Student = () => {
               background: colorBgContainer,
             }}
           >
-           {
-             option === '1' && <RegisterComplaints />
-           }
-           {
-            option === '2' && <ViewAllComplaints />
-           }
-           {
-            option === '3' && <ViewMessMenu />
-           }
-           {
-            option === '4' && <RateDailyMeal />
-           }
-
+            {option === "1" && <RegisterComplaints />}
+            {option === "2" && <ViewAllComplaints />}
+            {option === "3" && <ViewMessMenu />}
+            {option === "4" && <RateDailyMeal />}
           </div>
         </Content>
         <Footer
