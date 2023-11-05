@@ -10,7 +10,7 @@ const config = {
 //Register a new user
 export const RegisterUser = async (payload) => {
     try {
-        const response = await axios.post("/users/register", payload,config);
+        const response = await axios.post("/users/", payload,config);
         return response.data;
     } catch (error) {
         return error.message;
@@ -20,7 +20,16 @@ export const RegisterUser = async (payload) => {
 //Login a user
 export const LoginUser = async(payload) => {
     try {
-        const response = await axios.post("/users/login", payload,config);
+        const response = await axios.get("/users/login", payload,config);
+        return response.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+//get current user
+export const GetCurrentUser = async() => {
+    try {
+        const response = await axios.get("/users/get-current-user",config);
         return response.data;
     } catch (error) {
         return error.message;

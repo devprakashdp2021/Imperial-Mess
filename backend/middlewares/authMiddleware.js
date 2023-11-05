@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
     
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, "mess_menu_manage");
+    const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
     req.body.userId = decoded.userId;
     next();
   } catch (error) {

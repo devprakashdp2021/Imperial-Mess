@@ -35,7 +35,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const getuser=asyncHandler(async (req, res) => {
     try {
-      const user = await User.findById(req.body.gsuiteid).select("-password");
+
+      const user = await User.findOne({gsuiteid:req.body.gsuiteid}).select("-password");
       res.send({
         success: true,
         message: "User details fetched successfully",
