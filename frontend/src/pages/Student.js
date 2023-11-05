@@ -4,14 +4,19 @@ import RegisterComplaints from "../components/RegisterComplaints";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import ViewMessMenu from "../components/ViewMessMenu";
 import RateDailyMeal from "../components/RateDailyMeal";
-
+import { useNavigate } from 'react-router-dom';
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
+  const navigate=useNavigate();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   const [option, setOption] = useState('1');
+  function handleLogout(event){
+      localStorage.removeItem("token");
+      navigate("/login");
+  }
   function handleChangeOption(event){
     console.log(event.key)
     setOption(event.key)
@@ -55,7 +60,7 @@ const Student = () => {
           }}
         >
             <p style={{fontSize:"25px", display:"inline"}}>Name</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
+            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
         </Header>
         <Content
           style={{

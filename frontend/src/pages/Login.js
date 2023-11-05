@@ -1,13 +1,16 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 
 import {
   Button,
   Form,
   Input,
   Select,
+  message,
 } from 'antd';
-import Link from 'antd/es/typography/Link';
-
+import {Link,useNavigate} from 'react-router-dom';
+import { LoginUser } from '../apicalls/users';
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../redux/loadersSlice";
 
 const formItemLayout = {
   labelCol: {
@@ -41,9 +44,30 @@ const tailFormItemLayout = {
 };
 const Login = ({handleRegisterNow}) => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const onFinish =async (values) => {
+    try{
+     dispatch(ShowLoading());
+     const response=await LoginUser(values);
+     if(response.success){
+       message.success(response.message);
+       console.log(response.data)
+       localStorage.setItem("token",response.data);
+       navigate("/");
+     }else{
+       message.error(response.message);
+     }
+    }catch(error){
+     dispatch(HideLoading());
+     message.error(error.message);
+    }
+ }
+ useEffect(()=>{
+   if(localStorage.getItem("token")){
+     navigate("/");
+   }
+ })
 
 
   return (
@@ -64,13 +88,13 @@ const Login = ({handleRegisterNow}) => {
     
 
       <Form.Item
-        name="gmail"
+        name="gsuiteid"
         label="G-suite ID"
         rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid g-suite id',
-          },
+          // {
+          //   type: 'email',
+          //   message: 'The input is not valid g-suite id',
+          // },
           {
             required: true,
             message: 'Please input your g-suite id!',
