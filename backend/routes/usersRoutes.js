@@ -8,6 +8,6 @@ const authMiddleware=require("../middlewares/authMiddleware")
 const router=express.Router();
 
 router.post("/",registerUser);
-router.get("/login",authUser);
+router.post("/login",authUser);
 router.get("/get-current-user",authMiddleware,getuser)
 module.exports=router;

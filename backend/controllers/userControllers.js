@@ -12,7 +12,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
     const token=user.generateAuthToken();
     user.__v=undefined;
-    res.status(200).send({data:token,message:"wait sign in going"})
+    res.status(200).send({success: true, data:token,message:"wait sign in going"})
   });
 
   const registerUser = asyncHandler(async (req, res) => {
@@ -35,8 +35,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const getuser=asyncHandler(async (req, res) => {
     try {
-
-      const user = await User.findOne({gsuiteid:req.body.gsuiteid}).select("-password");
+      const user = await User.findById(req.body.userId).select("-password");
+      console.log(user);
       res.send({
         success: true,
         message: "User details fetched successfully",
