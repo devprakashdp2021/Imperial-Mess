@@ -4,20 +4,15 @@ const bcrypt=require("bcrypt");
 const authUser = asyncHandler(async (req, res) => {
     const user=await User.findOne({gsuiteid:req.body.gsuiteid});
     if(!user){
-        res.status(400).send({message:"invalid email or password"});
+        res.status(400).send({message:"invalid gsuiteid or password"});
     }
     const validate=await bcrypt.compare(req.body.password,user.password);
     if(!validate){
-        res.status(400).send({message:"invalid email or password"});
+        res.status(400).send({message:"invalid gsuiteid or password"});
     }
     const token=user.generateAuthToken();
-    user.password=undefined;
     user.__v=undefined;
-    res.cookie("access_token",token,{
-      httpOnly:true,
-    })
-    .status(200)
-    .send({data:user,message:"wait sign in going"})
+    res.status(200).send({data:token,message:"wait sign in going"})
   });
 
   const registerUser = asyncHandler(async (req, res) => {
@@ -34,13 +29,25 @@ const authUser = asyncHandler(async (req, res) => {
         ...req.body,
         password:hashPassword
     }).save();
-    newUser.password=undefined;
     newUser.__v=undefined;
-    const token=newUser.generateAuthToken();
-    res.cookie("access_token",token,{
-      httpOnly:true,
-    }).status(200).send({data:newUser,message:"account created successfully"});
+    res.status(200).send({success: true, message: "Registration Successfull, Please login"});
   });
 
+  const getuser=asyncHandler(async (req, res) => {
+    try {
+      const user = await User.findById(req.body.gsuiteid).select("-password");
+      res.send({
+        success: true,
+        message: "User details fetched successfully",
+        data: user,
+      });
+    } catch (error) {
+        console.log(error.message);
+      res.send({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
 
-module.exports = {registerUser, authUser};
+module.exports = {registerUser, authUser,getuser};

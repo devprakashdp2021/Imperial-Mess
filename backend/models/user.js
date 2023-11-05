@@ -36,11 +36,11 @@ userSchema.methods.generateAuthToken=function(){
 }
 const validate=(user)=>{
     const schema=joi.object({
-        name:joi.string(),
+        name:joi.string().required(),
         gsuiteid:joi.string().required(),
         password:passwordComplexity().required(),
-        role:joi.string(),
-        hostel:joi.string()
+        role:joi.string().required(),
+        hostel:joi.string().required()
     });
     return schema.validate(user);
 }
