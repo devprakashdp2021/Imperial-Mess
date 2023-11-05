@@ -1,5 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Form,
@@ -27,8 +27,21 @@ const normFile = (e) => {
 const onFinish = (values) => {
   console.log('Received values of form: ', values);
 };
-const RegisterComplaints = () => (
-  <Form
+
+
+function RegisterComplaints() {
+  const [complaintType, setComplaintType] = useState("");
+
+  
+  function handleComplaintType(value) {
+    console.log(value)
+    setComplaintType(value);
+  }
+
+
+  return (
+    <div>
+       <Form
     name="validate_other"
     {...formItemLayout}
     onFinish={onFinish}
@@ -49,13 +62,14 @@ const RegisterComplaints = () => (
         },
       ]}
     >
-      <Select placeholder="Please select a complaint type">
-        <Option value="mess">Mess Problem</Option>
-        <Option value="hostel">Hostel Problem</Option>
+      <Select placeholder="Please select a complaint type" 
+      onChange={handleComplaintType} value={complaintType}>
+        <Option value="mess" name="mess">Mess Problem</Option>
+        <Option value="hostel" name="hostel">Hostel Problem</Option>
       </Select>
     </Form.Item>
 
-    <Form.Item
+   {complaintType === "mess" && <Form.Item
       name="complaint"
       label="Complaint"
       hasFeedback
@@ -72,7 +86,27 @@ const RegisterComplaints = () => (
         <Option value="cleanliness-of-utensils">Cleanliness of Utensils</Option>
         <Option value="behaviour-of-mess-worker">Behaviour of Mess Worker</Option>
       </Select>
-    </Form.Item>
+    </Form.Item>}
+
+    {complaintType === "hostel" && <Form.Item
+      name="complaint"
+      label="Complaint"
+      hasFeedback
+      rules={[
+        {
+          required: true,
+          message: 'Please select your complaint!',
+        },
+      ]}
+    >
+      <Select placeholder="Please select a complaint">
+        <Option value="internet-problem">Internet Problem</Option>
+        <Option value="water-cooler-problem">Water Cooler Problem</Option>
+        <Option value="room-issue">Room Issue</Option>
+        <Option value="premises-cleanliness">Premises Cleanliness</Option>
+      </Select>
+    </Form.Item>}
+    
 
     <Form.Item
         name="description"
@@ -113,5 +147,8 @@ const RegisterComplaints = () => (
       </Space>
     </Form.Item>
   </Form>
-);
+    </div>
+  ); 
+
+};
 export default RegisterComplaints;

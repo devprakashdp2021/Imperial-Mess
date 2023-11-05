@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Flex, Layout, Menu, theme } from "antd";
 import RegisterComplaints from "../components/RegisterComplaints";
 import ViewAllComplaints from "../components/ViewAllComplaints";
+import ViewMessMenu from "../components/ViewMessMenu";
+import RateDailyMeal from "../components/RateDailyMeal";
+
 const { Header, Content, Footer, Sider } = Layout;
-const App = () => {
+const Student = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const [option, setOption] = useState('1');
+  function handleChangeOption(event){
+    console.log(event.key)
+    setOption(event.key)
+  }
   return (
     <Layout style={{ height: "100%" }}>
       <Sider
@@ -24,6 +33,7 @@ const App = () => {
           style={{ margin: "70px auto auto" }}
           theme="dark"
           mode="inline"
+          onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
           items={[
             "Register Complaint",
@@ -35,6 +45,7 @@ const App = () => {
             label: item,
           }))}
         />
+       
       </Sider>
       <Layout>
         <Header
@@ -49,7 +60,7 @@ const App = () => {
         <Content
           style={{
             margin: "24px 16px 0",
-            overflow: "scroll",
+            overflow: "auto",
           }}
         >
           <div
@@ -59,8 +70,19 @@ const App = () => {
               background: colorBgContainer,
             }}
           >
-            {/* <RegisterComplaints /> */}
-            <ViewAllComplaints />
+           {
+             option === '1' && <RegisterComplaints />
+           }
+           {
+            option === '2' && <ViewAllComplaints />
+           }
+           {
+            option === '3' && <ViewMessMenu />
+           }
+           {
+            option === '4' && <RateDailyMeal />
+           }
+
           </div>
         </Content>
         <Footer
@@ -68,10 +90,10 @@ const App = () => {
             textAlign: "center",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          Imperial Mess ©2023 Created by Team Never_Give_Up
         </Footer>
       </Layout>
     </Layout>
   );
 };
-export default App;
+export default Student;

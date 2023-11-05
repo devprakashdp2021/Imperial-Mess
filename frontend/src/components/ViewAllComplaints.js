@@ -1,21 +1,35 @@
 import React from 'react';
 import { Table } from 'antd';
+
 const columns = [
   {
     title: 'Complaint Type',
     dataIndex: 'complaintType',
     key: 'complaintType',
+    // width: "20%",
   },
   Table.EXPAND_COLUMN,
   {
     title: 'Complaint',
     dataIndex: 'complaint',
     key: 'complaint',
+    // width: "20%",
   },
   {
     title: 'Action',
     dataIndex: 'action',
     key: 'action',
+    render: (text, record) => (
+      <>
+       <button onClick={()=> console.log(record)} >
+        {"Upvote"}
+      </button>
+      <br />
+      <button  onClick={()=> console.log(record)}>
+        {"Downvote"}
+      </button>
+      </>
+     ),
   },
 ];
 const data = [
@@ -34,6 +48,41 @@ const data = [
     description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
   },
   {
+    key: 2,
+    complaintType: 'Jim Green',
+    complaint: 42,
+    action: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+  },
+  {
+    key: 2,
+    complaintType: 'Jim Green',
+    complaint: 42,
+    action: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+  },
+  {
+    key: 2,
+    complaintType: 'Jim Green',
+    complaint: 42,
+    action: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+  },
+  {
+    key: 2,
+    complaintType: 'Jim Green',
+    complaint: 42,
+    action: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+  },
+  {
+    key: 2,
+    complaintType: 'Jim Green',
+    complaint: 42,
+    action: 'London No. 1 Lake Park',
+    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
+  },
+  {
     key: 3,
     complaintType: 'Not Expandable',
     complaint: 29,
@@ -42,8 +91,9 @@ const data = [
   },
  
 ];
-const ViewAllComplaints = () => (
-  <Table
+function ViewAllComplaints () {
+  return (
+    <Table
     columns={columns}
     expandable={{
       expandedRowRender: (record) => (
@@ -57,6 +107,9 @@ const ViewAllComplaints = () => (
       ),
     }}
     dataSource={data}
+    pagination={false}
   />
-);
+  );
+  
+};
 export default ViewAllComplaints;
