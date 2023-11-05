@@ -23,29 +23,29 @@ function RateDailyMeal() {
         Date: {date}
       </div>
       <div>
-      <Row gutter={[48,32]} style={{margin: "60px"}}>
-        <Col style={{margin: "2%"}} span={8}>
+      <Row gutter={[32,32]} style={{margin: "60px"}}>
+        <Col span={5}>
           <Card title="Breakfast" bordered={false}>
             Breakfast
             <br />
             <Rate />
           </Card>
         </Col>
-        <Col style={{margin: "2%"}} span={8}>
+        <Col span={5}>
           <Card title="Lunch" bordered={false}>
             Lunch
             <br />
             <Rate />
           </Card>
         </Col>
-        <Col style={{margin: "2%"}} span={8}>
+        <Col span={5}>
           <Card title="Supper" bordered={false}>
             Supper
             <br />
             <Rate />
           </Card>
         </Col>
-        <Col style={{margin: "2%"}} span={8}>
+        <Col span={5}>
           <Card title="Dinner" bordered={false}>
             Dinner
             <br />
