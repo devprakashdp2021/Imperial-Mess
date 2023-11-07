@@ -5,8 +5,10 @@ import ViewAllComplaints from "../components/ViewAllComplaints";
 import ViewMessMenu from "../components/ViewMessMenu";
 import RateDailyMeal from "../components/RateDailyMeal";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
+  const {user} = useSelector((state) => state.users);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer },
@@ -58,7 +60,7 @@ const Student = () => {
             background: colorBgContainer,
           }}
         >
-          <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
+          <p style={{ fontSize: "25px", display: "inline" }}>{user?user.name:"NAME"}</p>
           <Button
              
             style={{ float: "right", margin: "15px" }}

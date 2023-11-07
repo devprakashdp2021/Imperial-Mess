@@ -3,7 +3,6 @@ const Complaint=require("../models/complaintmodel");
 const RegisterComplaint = asyncHandler(async (req, res) => {
     try {
         const newComplaint = new Complaint(req.body);
-        newComplaint.owner=req.body.userId;
         await newComplaint.save();
         res.send({
             success: true,

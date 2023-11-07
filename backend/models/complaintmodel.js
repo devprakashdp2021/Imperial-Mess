@@ -17,6 +17,7 @@ const complaintSchema = new mongoose.Schema(
       owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
+        required:true,
       },
       vote:{
         type:[mongoose.Schema.Types.ObjectId],
