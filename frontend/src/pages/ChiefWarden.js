@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import UpdateMessMenu from "../components/UpdateMessMenu";
+import ViewAllStudents from "../components/ViewAllStudents";
 
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
@@ -36,6 +37,7 @@ const Student = () => {
           items={[
             "View Complaint",
             "View Mess Menu",
+            "View All Students",
           ].map((item, index) => ({
             key: String(index + 1),
             label: item,
@@ -67,10 +69,13 @@ const Student = () => {
             }}
           >
            {
-             option === '1' && <ViewAllComplaints />
+             option === '1' && <ViewAllComplaints buttonFor="chiefWarden"/>
            }
            {
             option === '2' && <UpdateMessMenu />
+           }
+           {
+            option === '3' && <ViewAllStudents />
            }
 
           </div>
