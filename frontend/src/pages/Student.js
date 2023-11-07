@@ -60,6 +60,7 @@ const Student = () => {
         >
           <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
           <Button
+             
             style={{ float: "right", margin: "15px" }}
             type="primary"
             onClick={handleLogout}
@@ -81,7 +82,7 @@ const Student = () => {
             }}
           >
             {option === "1" && <RegisterComplaints />}
-            {option === "2" && <ViewAllComplaints />}
+            {option === "2" && <ViewAllComplaints buttonFor="student"/>}
             {option === "3" && <ViewMessMenu />}
             {option === "4" && <RateDailyMeal />}
           </div>

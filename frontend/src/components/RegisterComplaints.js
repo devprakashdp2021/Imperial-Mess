@@ -122,18 +122,6 @@ function RegisterComplaints() {
       </Form.Item>
 
     <Form.Item
-      name="upload"
-      label="Upload"
-      valuePropName="fileList"
-      getValueFromEvent={normFile}
-      extra=".jpg"
-    >
-      <Upload name="logo" action="/upload.do" listType="picture">
-        <Button icon={<UploadOutlined />}>Click to upload</Button>
-      </Upload>
-    </Form.Item>
-
-    <Form.Item
       wrapperCol={{
         span: 12,
         offset: 6,
