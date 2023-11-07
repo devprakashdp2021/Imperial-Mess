@@ -1,13 +1,16 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 
 import {
   Button,
   Form,
   Input,
   Select,
+  message,
 } from 'antd';
-import Link from 'antd/es/typography/Link';
-
+import {Link,useNavigate} from 'react-router-dom';
+import { RegisterUser } from '../apicalls/users';
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../redux/loadersSlice"
 
 const formItemLayout = {
   labelCol: {
@@ -47,9 +50,31 @@ const tailFormItemLayout = {
 };
 const Register = ({handleLoginNow}) => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const onFinish = async (values) => {
+    console.log(values)
+    try {
+      dispatch(ShowLoading());
+      const response = await RegisterUser(values);
+      dispatch(HideLoading());
+      if(response.success){
+        message.success(response.message);
+        // navigate("/login");
+        handleLoginNow()
+      }else{
+        message.error(response.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  }
+ useEffect(()=>{
+  if(localStorage.getItem("token")){
+    navigate("/");
+  }
+ })
 
 
   return (
@@ -82,13 +107,13 @@ const Register = ({handleLoginNow}) => {
       </Form.Item>
 
       <Form.Item
-        name="gmail"
+        name="gsuiteid"
         label="G-suite ID"
         rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid g-suite id',
-          },
+          // {
+          //   type: 'email',
+          //   message: 'The input is not valid g-suite id',
+          // },
           {
             required: true,
             message: 'Please input your g-suite id!',
@@ -124,10 +149,10 @@ const Register = ({handleLoginNow}) => {
       hasFeedback
       >
         <Select>
-          <Select.Option value="demo">Student</Select.Option>
-          <Select.Option value="demo">Accountant</Select.Option>
-          <Select.Option value="demo">Prof/Chief Warden</Select.Option>
-          <Select.Option value="demo">Student Representative</Select.Option>
+          <Select.Option value="Student">Student</Select.Option>
+          <Select.Option value="Accountant">Accountant</Select.Option>
+          <Select.Option value="Prof/Chief Warden">Prof/Chief Warden</Select.Option>
+          <Select.Option value="Student Representative">Student Representative</Select.Option>
        </Select>
       </Form.Item>
 
@@ -143,11 +168,11 @@ const Register = ({handleLoginNow}) => {
       ]}
       hasFeedback>
         <Select>
-          <Select.Option value="demo">Tilak</Select.Option>
-          <Select.Option value="demo">Malviya</Select.Option>
-          <Select.Option value="demo">Tandon</Select.Option>
-          <Select.Option value="demo">Patel</Select.Option>
-          <Select.Option value="demo">Tagore</Select.Option>
+          <Select.Option value="Tilak">Tilak</Select.Option>
+          <Select.Option value="Malviya">Malviya</Select.Option>
+          <Select.Option value="Tandon">Tandon</Select.Option>
+          <Select.Option value="Patel">Patel</Select.Option>
+          <Select.Option value="Tagore">Tagore</Select.Option>
        </Select>
       </Form.Item>
       
