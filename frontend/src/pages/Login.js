@@ -54,7 +54,7 @@ const Login = ({handleRegisterNow}) => {
        message.success(response.message);
        console.log(response.data)
        localStorage.setItem("token",response.data);
-       navigate("/");
+       window.location.href="/";
      }else{
        message.error(response.message);
      }
@@ -76,10 +76,6 @@ const Login = ({handleRegisterNow}) => {
       form={form}
       name="register"
       onFinish={onFinish}
-      initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
-      }}
       style={{
         maxWidth: 600,
       }}

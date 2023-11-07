@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { Button, Layout, Menu, theme } from "antd";
-import RegisterComplaints from "../components/RegisterComplaints";
+import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
-import ViewMessMenu from "../components/ViewMessMenu";
-import RateDailyMeal from "../components/RateDailyMeal";
-import { useNavigate } from "react-router-dom";
+import UpdateMessMenu from "../components/UpdateMessMenu";
+import ViewAllStudents from "../components/ViewAllStudents";
+
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
-  const navigate = useNavigate();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [option, setOption] = useState("1");
-  function handleLogout(event) {
-    localStorage.removeItem("token");
-    navigate("/login");
-  }
-  function handleChangeOption(event) {
-    console.log(event.key);
-    setOption(event.key);
+  const [option, setOption] = useState('1');
+  function handleChangeOption(event){
+    console.log(event.key)
+    setOption(event.key)
   }
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100%" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -41,15 +35,15 @@ const Student = () => {
           onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
           items={[
-            "Register Complaint",
             "View Complaint",
             "View Mess Menu",
-            "Rate daily Meal",
+            "View All Students",
           ].map((item, index) => ({
             key: String(index + 1),
             label: item,
           }))}
         />
+       
       </Sider>
       <Layout>
         <Header
@@ -58,15 +52,8 @@ const Student = () => {
             background: colorBgContainer,
           }}
         >
-          <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
-          <Button
-             
-            style={{ float: "right", margin: "15px" }}
-            type="primary"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
+            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
         </Header>
         <Content
           style={{
@@ -81,10 +68,16 @@ const Student = () => {
               background: colorBgContainer,
             }}
           >
-            {option === "1" && <RegisterComplaints />}
-            {option === "2" && <ViewAllComplaints buttonFor="student"/>}
-            {option === "3" && <ViewMessMenu />}
-            {option === "4" && <RateDailyMeal />}
+           {
+             option === '1' && <ViewAllComplaints buttonFor="chiefWarden"/>
+           }
+           {
+            option === '2' && <UpdateMessMenu />
+           }
+           {
+            option === '3' && <ViewAllStudents />
+           }
+
           </div>
         </Content>
         <Footer
