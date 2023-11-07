@@ -1,5 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
+import ChiefWarden from './pages/ChiefWarden';
 // import Student from './pages/Student';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   return (
     <div className="App">
     <Home />
+    {/* <ChiefWarden /> */}
      {/* <Student /> */}
     </div>
   );
