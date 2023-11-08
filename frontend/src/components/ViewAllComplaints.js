@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { Button, Flex, Table } from "antd";
-
+import React,{useEffect,useState} from "react";
+import { Button, Flex, Table, message } from "antd";
+import { GetAllComplaint } from "../apicalls/complaints";
+import { HideLoading, ShowLoading } from '../redux/loadersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 function ViewAllComplaints(props) {
   const [upvoteCounter, setUpvoteCounter] = useState(0);
   const [downvoteCounter, setDownvoteCounter] = useState(0);
@@ -11,101 +13,46 @@ function ViewAllComplaints(props) {
   function handleDownvote() {
     setDownvoteCounter(downvoteCounter + 1);
   }
-
-  const data = [
-    {
-      key: 1,
-      complaintType: "John Brown",
-      complaint: 32,
-      action: "nn",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description: "My name is John Brown, I am 3rfoiljrfoilinrlfjnlrjfnorljfl",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 2,
-      complaintType: "Jim Green",
-      complaint: 42,
-      action: "London No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description:
-        "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    },
-    {
-      key: 3,
-      complaintType: "Not Expandable",
-      complaint: 29,
-      action: "Jiangsu No. 1 Lake Park",
-      upvoteCounter: 0,
-      downvoteCounter: 0, 
-      description: "This not expandable",
-    },
-  ];
-
+ 
+  const [isLoading,setLoading]=useState(true);
+  const[data,setData]=useState({});
+  const dispatch = useDispatch();
+  async function fetchallcomplaint (){
+    try {
+      dispatch(ShowLoading());
+      let  response = await GetAllComplaint();
+          if(response.success){
+              setData(response.data.map((item,index)=>({
+                  key:index+1,
+                  complaintType: item.complaintType,
+                  complaint: item.complaint,
+                  description:item.description,
+                
+              })) 
+              )
+          }else{
+              message.error(response.message);
+          }
+          setLoading(false);
+          dispatch(HideLoading());
+      } catch (error) {
+          dispatch(HideLoading());
+          message.error(error.message);
+      }
+  }
   const columns = [
     {
       title: "Complaint Type",
       dataIndex: "complaintType",
       key: "complaintType",
-      width: "30%",
+      // width: "20%",
     },
     Table.EXPAND_COLUMN,
     {
       title: "Complaint",
       dataIndex: "complaint",
       key: "complaint",
-      width: "40%",
+      // width: "20%",
     },
     {
       title: "Action",
@@ -114,29 +61,32 @@ function ViewAllComplaints(props) {
       render: (text, record) => (
         <>
           {props.buttonFor === "chiefWarden" && (
-            <>
-              <button onClick={() => console.log(record)}>{"Resolve"}</button>
-            </>
+            <button onClick={() => console.log(record)}>{"Resolve"}</button>
           )}
 
           {props.buttonFor === "student" && (
             <>
-            <Flex gap="large" wrap="wrap">
-            {record.upvoteCounter} 
-              <Button type="dashed" onClick={handleUpvote}>{"Upvote"}</Button>
-              {record.downvoteCounter}
-              <Button type="dashed" onClick={handleDownvote}>{"Downvote"}</Button>
-            </Flex> 
+              {upvoteCounter}
+              <button onClick={handleUpvote}>{"Upvote"}</button>
+              {downvoteCounter}
+              <button onClick={handleDownvote}>{"Downvote"}</button>
             </>
           )}
         </>
       ),
     },
   ];
-
- 
+   
+  
+useEffect(() => {
+    fetchallcomplaint();
+  }, []);
+  if(isLoading){
+    return <div> Loading....</div>;
+  }
   return (
-    <Table
+   <>
+     <Table
       columns={columns}
       expandable={{
         expandedRowRender: (record) => (
@@ -152,6 +102,8 @@ function ViewAllComplaints(props) {
       dataSource={data}
       pagination={false}
     />
+    {/* {console.log(data)} */}
+   </>
   );
 }
 export default ViewAllComplaints;

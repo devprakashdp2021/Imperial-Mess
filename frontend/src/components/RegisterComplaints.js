@@ -5,8 +5,11 @@ import {
   Input,
   Select,
   Space,
+  message,
 } from 'antd';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { RegisterComplaint } from '../apicalls/complaints';
+import { HideLoading, ShowLoading } from '../redux/loadersSlice';
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -16,23 +19,30 @@ const formItemLayout = {
     span: 14,
   },
 };
-const normFile = (e) => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
-const onFinish = (values) => {
-  values.owner=12345;
-  console.log('Received values of form: ', values);
-};
 
 
 function RegisterComplaints() {
+  const {user} = useSelector((state) => state.users);
+  const dispatch = useDispatch();
   const [complaintType, setComplaintType] = useState("");
 
-  
+  const onFinish = async(values) => {
+    values.owner = user._id;
+    console.log(values)
+    try {
+    dispatch(ShowLoading());
+    let  response = await RegisterComplaint(values);
+        if(response.success){
+            message.success(response.message);
+        }else{
+            message.error(response.message);
+        }
+        dispatch(HideLoading());
+    } catch (error) {
+        dispatch(HideLoading());
+        message.error(error.message);
+    }
+  };
   function handleComplaintType(value) {
     console.log(value)
     setComplaintType(value);
@@ -52,7 +62,7 @@ function RegisterComplaints() {
   >
    
     <Form.Item
-      name="complaint type"
+      name="complaintType"
       label="Complaint Type"
       hasFeedback
       rules={[
