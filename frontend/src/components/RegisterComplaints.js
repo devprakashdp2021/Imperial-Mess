@@ -1,4 +1,3 @@
-import { UploadOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import {
   Button,
@@ -6,8 +5,8 @@ import {
   Input,
   Select,
   Space,
-  Upload,
 } from 'antd';
+
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -25,6 +24,7 @@ const normFile = (e) => {
   return e?.fileList;
 };
 const onFinish = (values) => {
+  values.owner=12345;
   console.log('Received values of form: ', values);
 };
 
