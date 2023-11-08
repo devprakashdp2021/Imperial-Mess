@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row } from "antd";
 import { Rate } from 'antd';
+import RateMealCard from "./RateMealCard";
 let dateObj = new Date();
 
 let month = String(dateObj.getMonth() + 1)
@@ -22,37 +23,11 @@ function RateDailyMeal() {
         <br />
         Date: {date}
       </div>
-      <div>
-      <Row gutter={[32,32]} style={{margin: "60px"}}>
-        <Col span={5}>
-          <Card title="Breakfast" bordered={false}>
-            Breakfast
-            <br />
-            <Rate />
-          </Card>
-        </Col>
-        <Col span={5}>
-          <Card title="Lunch" bordered={false}>
-            Lunch
-            <br />
-            <Rate />
-          </Card>
-        </Col>
-        <Col span={5}>
-          <Card title="Supper" bordered={false}>
-            Supper
-            <br />
-            <Rate />
-          </Card>
-        </Col>
-        <Col span={5}>
-          <Card title="Dinner" bordered={false}>
-            Dinner
-            <br />
-            <Rate />
-          </Card>
-        </Col>
-      </Row>
+      <div style={{display: "flex", flexWrap:"wrap", justifyContent:"center"}}>
+      <RateMealCard title="Breakfast" content="Milk, Banana"/>
+      <RateMealCard title="Lunch" content="Rice, Daal and Sabji"/>
+      <RateMealCard title="Supper" content="Chai and Samosa"/>
+      <RateMealCard title="Dinner" content="Roti, Sabji and Gulaabjamun"/>
       </div>
       
     </>

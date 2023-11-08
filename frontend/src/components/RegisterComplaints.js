@@ -1,4 +1,3 @@
-import { UploadOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import {
   Button,

@@ -1,9 +1,20 @@
 import React,{useEffect,useState} from "react";
-import { Table ,message} from "antd";
+import { Button, Flex, Table, message } from "antd";
 import { GetAllComplaint } from "../apicalls/complaints";
 import { HideLoading, ShowLoading } from '../redux/loadersSlice';
 import { useDispatch, useSelector } from 'react-redux';
+
 function ViewAllComplaints(props) {
+  const [upvoteCounter, setUpvoteCounter] = useState(0);
+  const [downvoteCounter, setDownvoteCounter] = useState(0);
+
+  function handleUpvote() {
+    setUpvoteCounter(upvoteCounter + 1);
+  }
+  function handleDownvote() {
+    setDownvoteCounter(downvoteCounter + 1);
+  }
+ 
   const [isLoading,setLoading]=useState(true);
   const[data,setData]=useState({});
   const dispatch = useDispatch();
@@ -17,7 +28,8 @@ function ViewAllComplaints(props) {
                   complaintType: item.complaintType,
                   complaint: item.complaint,
                   description:item.description,
-                
+                  upvoteCounter: item.upvoteCount,
+                  downvoteCounter: item.downvoteCount,  
               })) 
               )
           }else{
@@ -35,14 +47,14 @@ function ViewAllComplaints(props) {
       title: "Complaint Type",
       dataIndex: "complaintType",
       key: "complaintType",
-      // width: "20%",
+      width: "30%",
     },
     Table.EXPAND_COLUMN,
     {
       title: "Complaint",
       dataIndex: "complaint",
       key: "complaint",
-      // width: "20%",
+      width: "40%",
     },
     {
       title: "Action",
@@ -51,14 +63,17 @@ function ViewAllComplaints(props) {
       render: (text, record) => (
         <>
           {props.buttonFor === "chiefWarden" && (
-            <button onClick={() => console.log(record)}>{"Resolve"}</button>
+            <Button onClick={() => console.log(record)}>{"Resolve"}</Button>
           )}
 
           {props.buttonFor === "student" && (
             <>
-              <button onClick={() => console.log(record)}>{"Upvote"}</button>
-              <br />
-              <button onClick={() => console.log(record)}>{"Downvote"}</button>
+            <Flex gap="small" >
+            {record.upvoteCounter}
+              <Button type="dashed" onClick={handleUpvote}>{"Upvote"}</Button>
+              {record.downvoteCounter}
+              <Button type="dashed" onClick={handleDownvote}>{"Downvote"}</Button>
+            </Flex>    
             </>
           )}
         </>
