@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Home from './pages/Home';
 import Student from './pages/Student';
 import ChiefWarden from "./pages/ChiefWarden";
+import Accountant from './pages/Accountant';
 
 function App() {
   const {loading}=useSelector((state)=>state.loaders);
@@ -12,8 +13,9 @@ function App() {
     <div className='App'>
     {/* <ChiefWarden /> */}
     {/* <Student /> */}
+    <Accountant />
 
-   {loading&&(
+   {/* {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>
       </div>
@@ -23,7 +25,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Student/></ProtectedRoute>} />
           <Route path="/login" element={<Home/>} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }
