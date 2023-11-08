@@ -75,7 +75,7 @@ const Student = () => {
             option === '2' && <UpdateMessMenu />
            }
            {
-            option === '3' && <ViewAllStudents />
+            option === '3' && <ViewAllStudents buttonFor="chiefWarden"/>
            }
 
           </div>

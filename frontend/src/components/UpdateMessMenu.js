@@ -1,14 +1,65 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
-const originData = [];
-for (let i = 0; i < 7; i++) {
-  originData.push({
-    key: i.toString(),
-    name: `Edward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
+const originData = [
+  {
+    key: '1',
+    day: 'Monday',
+    breakfast: 'Idli, Sambar, Milk Bournvita',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '2',
+    day: 'Tuesday',
+    breakfast: 'Aloo Paratha, Curd, Pickle',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '3',
+    day: 'Wednesday',
+    breakfast: 'Sandwich, Milk Bournvita',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '4',
+    day: 'Thursday',
+    breakfast: 'Paneer Paratha, Curd, Pickle',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '5',
+    day: 'Friday',
+    breakfast: 'Sambhar Vada, Milk Bournvita',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '6',
+    day: 'Saturday',
+    breakfast: 'Chola Samosa, Milk Bournvita',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+  {
+    key: '7',
+    day: 'Sunday',
+    breakfast: 'Poha Jalebi, Milk Bournvita',
+    lunch: 'Rice, Daal, Sabji, Curd, Salad',
+    supper: 'Chai, Samosa',
+    dinner: 'Roti, Sabji, Gulaabjamun',
+  },
+
+];
+
 const EditableCell = ({
   editing,
   dataIndex,
@@ -50,9 +101,11 @@ const App = () => {
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
-      name: '',
-      age: '',
-      address: '',
+      day: '',
+      breakfast: '',
+      lunch: '',
+      supper: '',
+      dinner: '',
       ...record,
     });
     setEditingKey(record.key);
@@ -84,26 +137,38 @@ const App = () => {
   };
   const columns = [
     {
-      title: 'name',
-      dataIndex: 'name',
-      width: '25%',
-      editable: true,
-    },
-    {
-      title: 'age',
-      dataIndex: 'age',
+      title: 'Day',
+      dataIndex: 'day',
       width: '15%',
+      
+    },
+    {
+      title: 'Breakfast',
+      dataIndex: 'breakfast',
+      width: '20%',
       editable: true,
     },
     {
-      title: 'address',
-      dataIndex: 'address',
-      width: '40%',
+      title: 'Lunch',
+      dataIndex: 'lunch',
+      width: '20%',
       editable: true,
     },
     {
-      title: 'operation',
-      dataIndex: 'operation',
+      title: 'Supper',
+      dataIndex: 'supper',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'Dinner',
+      dataIndex: 'dinner',
+      width: '20%',
+      editable: true,
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -136,7 +201,6 @@ const App = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex === 'age' ? 'number' : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

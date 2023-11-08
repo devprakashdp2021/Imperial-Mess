@@ -24,7 +24,7 @@ const data = [
     gsuiteid: "abc@gmail.com",
   },
 ];
-const ViewAllStudents = () => {
+const ViewAllStudents = (props) => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -151,6 +151,13 @@ const ViewAllStudents = () => {
       dataIndex: 'action',
       key: 'action',
       ...getColumnSearchProps('action'),
+      render: (text, record) => (
+        <>
+          {props.buttonFor === "chiefWarden" && (
+            <Button onClick={() => console.log(record)}>{"Block"}</Button>
+          )}
+        </>
+      ),
     },
   ];
   return <Table columns={columns} dataSource={data} pagination={false}/>;
