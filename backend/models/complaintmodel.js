@@ -23,14 +23,8 @@ const complaintSchema = new mongoose.Schema(
         type:[mongoose.Schema.Types.ObjectId],
         ref:"user",
       },
-      upvoteCount:{
-        type:Number,
-        default:0,
-        ref:"user",
-      },
-      downvoteCount:{
-        type:Number,
-        default:0,
+      downvote:{
+        type:[mongoose.Schema.Types.ObjectId],
         ref:"user",
       }
     },

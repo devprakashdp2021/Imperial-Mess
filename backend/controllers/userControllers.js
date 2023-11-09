@@ -35,9 +35,9 @@ const authUser = asyncHandler(async (req, res) => {
 
   const getuser=asyncHandler(async (req, res) => {
     try {
-      console.log(req.body)
+      // console.log(req.body)
       const user = await User.findById(req.body.userId).select("-password");
-      console.log(user);
+      // console.log(user);
       res.send({
         success: true,
         message: "User details fetched successfully",

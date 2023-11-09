@@ -12,10 +12,8 @@ function App() {
   return (
     <div className='App'>
     {/* <ChiefWarden /> */}
-    {/* <Student /> */}
-    <Accountant />
 
-   {/* {loading&&(
+   {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>
       </div>
@@ -25,7 +23,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Student/></ProtectedRoute>} />
           <Route path="/login" element={<Home/>} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }

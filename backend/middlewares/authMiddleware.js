@@ -3,10 +3,11 @@ const jwt = require("jsonwebtoken");
 module.exports = function (req, res, next) {
     
   try {
+    // console.log("reach auth");
     const token = req.headers.authorization.split(" ")[1];
-    console.log(token)
+    // console.log(token)
     const decoded = jwt.verify(token,process.env.JWTPRIVATEKEY);
-    console.log(decoded)
+    // console.log(decoded)
     req.body.userId = decoded._id;
     next();
   } catch (error) {
