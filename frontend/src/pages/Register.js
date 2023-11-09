@@ -1,16 +1,10 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  message,
-} from 'antd';
-import {Link,useNavigate} from 'react-router-dom';
-import { RegisterUser } from '../apicalls/users';
+import { Button, Form, Input, Select, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { RegisterUser } from "../apicalls/users";
 import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../redux/loadersSlice"
+import { HideLoading, ShowLoading } from "../redux/loadersSlice";
 
 const formItemLayout = {
   labelCol: {
@@ -48,58 +42,56 @@ const tailFormItemLayout = {
     },
   },
 };
-const Register = ({handleLoginNow}) => {
+const Register = ({ handleLoginNow }) => {
   const [form] = Form.useForm();
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
-    console.log(values)
+    console.log(values);
     try {
       dispatch(ShowLoading());
       const response = await RegisterUser(values);
       dispatch(HideLoading());
-      if(response.success){
+      if (response.success) {
         message.success(response.message);
         // navigate("/login");
-        handleLoginNow()
-      }else{
+        handleLoginNow();
+      } else {
         message.error(response.message);
       }
     } catch (error) {
       dispatch(HideLoading());
       message.error(error.message);
     }
-  }
- useEffect(()=>{
-  if(localStorage.getItem("token")){
-    navigate("/");
-  }
- })
-
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
-
     <Form
       {...formItemLayout}
       form={form}
       name="register"
       onFinish={onFinish}
       initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
+        residence: ["zhejiang", "hangzhou", "xihu"],
+        prefix: "86",
       }}
       style={{
         maxWidth: 600,
       }}
       scrollToFirstError
     >
-    <Form.Item 
+      <Form.Item
         name="name"
         label="Name"
         rules={[
           {
             required: true,
-            message: 'Please input your name!',
+            message: "Please input your name!",
           },
         ]}
       >
@@ -116,7 +108,7 @@ const Register = ({handleLoginNow}) => {
           // },
           {
             required: true,
-            message: 'Please input your g-suite id!',
+            message: "Please input your g-suite id!",
           },
         ]}
       >
@@ -129,7 +121,7 @@ const Register = ({handleLoginNow}) => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: "Please input your password!",
           },
         ]}
         hasFeedback
@@ -137,55 +129,61 @@ const Register = ({handleLoginNow}) => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item 
-      name="role"
-      label="Role"
-      rules={[
-        {
-          required: true,
-          message: 'Please select your role!',
-        },
-      ]}
-      hasFeedback
+      <Form.Item
+        name="role"
+        label="Role"
+        rules={[
+          {
+            required: true,
+            message: "Please select your role!",
+          },
+        ]}
+        hasFeedback
       >
         <Select>
           <Select.Option value="Student">Student</Select.Option>
           <Select.Option value="Accountant">Accountant</Select.Option>
-          <Select.Option value="Prof/Chief Warden">Prof/Chief Warden</Select.Option>
-          <Select.Option value="Student Representative">Student Representative</Select.Option>
-       </Select>
+          <Select.Option value="Prof/Chief Warden">
+            Prof/Chief Warden
+          </Select.Option>
+          <Select.Option value="Student Representative">
+            Student Representative
+          </Select.Option>
+        </Select>
       </Form.Item>
 
-      <Form.Item 
-      style={{marginBottom: "10px"}}
-      name="hostel"
-      label="Hostel"
-      rules={[
-        {
-          required: true,
-          message: 'Please select your hostel!',
-        },
-      ]}
-      hasFeedback>
+      <Form.Item
+        style={{ marginBottom: "10px" }}
+        name="hostel"
+        label="Hostel"
+        rules={[
+          {
+            required: true,
+            message: "Please select your hostel!",
+          },
+        ]}
+        hasFeedback
+      >
         <Select>
           <Select.Option value="Tilak">Tilak</Select.Option>
           <Select.Option value="Malviya">Malviya</Select.Option>
           <Select.Option value="Tandon">Tandon</Select.Option>
           <Select.Option value="Patel">Patel</Select.Option>
           <Select.Option value="Tagore">Tagore</Select.Option>
-       </Select>
+        </Select>
       </Form.Item>
-      
-      <Form.Item {...tailFormItemLayout}> 
+
+      <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Register
         </Button>
         <br />
-        Or <Link to="" onClick={handleLoginNow}>Login!</Link>
-        
+        Or{" "}
+        <Link to="" onClick={handleLoginNow}>
+          Login!
+        </Link>
       </Form.Item>
     </Form>
-    
   );
 };
 export default Register;

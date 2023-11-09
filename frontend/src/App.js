@@ -1,18 +1,18 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
-import Home from './pages/Home';
-import Student from './pages/Student';
+import Home from "./pages/Home";
+import Student from "./pages/Student";
 import ChiefWarden from "./pages/ChiefWarden";
 
 function App() {
-  const {loading}=useSelector((state)=>state.loaders);
+  const { loading } = useSelector((state) => state.loaders);
   return (
-    <div className='App'>
-    <ChiefWarden />
+    <div className="App">
+      <ChiefWarden />
 
-   {/* {loading&&(
+      {/* {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>
       </div>

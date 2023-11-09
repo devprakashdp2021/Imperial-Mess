@@ -1,32 +1,32 @@
-import { SearchOutlined } from '@ant-design/icons';
-import React, { useRef, useState } from 'react';
-import Highlighter from 'react-highlight-words';
-import { Button, Input, Space, Table } from 'antd';
+import { SearchOutlined } from "@ant-design/icons";
+import React, { useRef, useState } from "react";
+import Highlighter from "react-highlight-words";
+import { Button, Input, Space, Table } from "antd";
 const data = [
   {
-    key: '1',
-    name: 'John Brown',
+    key: "1",
+    name: "John Brown",
     gsuiteid: "abc@gmail.com",
   },
   {
-    key: '2',
-    name: 'Joe Black',
+    key: "2",
+    name: "Joe Black",
     gsuiteid: "abc@gmail.com",
   },
   {
-    key: '3',
-    name: 'Jim Green',
+    key: "3",
+    name: "Jim Green",
     gsuiteid: "abc@gmail.com",
   },
   {
-    key: '4',
-    name: 'Jim Red',
+    key: "4",
+    name: "Jim Red",
     gsuiteid: "abc@gmail.com",
   },
 ];
 const ViewAllStudents = (props) => {
-  const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState('');
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -35,10 +35,16 @@ const ViewAllStudents = (props) => {
   };
   const handleReset = (clearFilters) => {
     clearFilters();
-    setSearchText('');
+    setSearchText("");
   };
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
       <div
         style={{
           padding: 8,
@@ -49,11 +55,13 @@ const ViewAllStudents = (props) => {
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           style={{
             marginBottom: 8,
-            display: 'block',
+            display: "block",
           }}
         />
         <Space>
@@ -105,7 +113,7 @@ const ViewAllStudents = (props) => {
     filterIcon: (filtered) => (
       <SearchOutlined
         style={{
-          color: filtered ? '#1677ff' : undefined,
+          color: filtered ? "#1677ff" : undefined,
         }}
       />
     ),
@@ -120,12 +128,12 @@ const ViewAllStudents = (props) => {
       searchedColumn === dataIndex ? (
         <Highlighter
           highlightStyle={{
-            backgroundColor: '#ffc069',
+            backgroundColor: "#ffc069",
             padding: 0,
           }}
           searchWords={[searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -133,24 +141,24 @@ const ViewAllStudents = (props) => {
   });
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '30%',
-      ...getColumnSearchProps('name'),
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: "30%",
+      ...getColumnSearchProps("name"),
     },
     {
-      title: 'G-Suite ID',
-      dataIndex: 'gsuiteid',
-      key: 'gsuiteid',
-      width: '40%',
-      ...getColumnSearchProps('gsuiteid'),
+      title: "G-Suite ID",
+      dataIndex: "gsuiteid",
+      key: "gsuiteid",
+      width: "40%",
+      ...getColumnSearchProps("gsuiteid"),
     },
     {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-      ...getColumnSearchProps('action'),
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      ...getColumnSearchProps("action"),
       render: (text, record) => (
         <>
           {props.buttonFor === "chiefWarden" && (
@@ -160,6 +168,6 @@ const ViewAllStudents = (props) => {
       ),
     },
   ];
-  return <Table columns={columns} dataSource={data} pagination={false}/>;
+  return <Table columns={columns} dataSource={data} pagination={false} />;
 };
 export default ViewAllStudents;

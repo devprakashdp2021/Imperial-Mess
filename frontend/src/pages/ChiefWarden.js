@@ -10,10 +10,10 @@ const Student = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [option, setOption] = useState('1');
-  function handleChangeOption(event){
-    console.log(event.key)
-    setOption(event.key)
+  const [option, setOption] = useState("1");
+  function handleChangeOption(event) {
+    console.log(event.key);
+    setOption(event.key);
   }
   return (
     <Layout style={{ height: "100%" }}>
@@ -34,16 +34,13 @@ const Student = () => {
           mode="inline"
           onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
-          items={[
-            "View Complaint",
-            "View Mess Menu",
-            "View All Students",
-          ].map((item, index) => ({
-            key: String(index + 1),
-            label: item,
-          }))}
+          items={["View Complaint", "View Mess Menu", "View All Students"].map(
+            (item, index) => ({
+              key: String(index + 1),
+              label: item,
+            })
+          )}
         />
-       
       </Sider>
       <Layout>
         <Header
@@ -52,8 +49,10 @@ const Student = () => {
             background: colorBgContainer,
           }}
         >
-            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
+          <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
+          <Button style={{ float: "right", margin: "15px" }} type="primary">
+            Logout
+          </Button>
         </Header>
         <Content
           style={{
@@ -68,16 +67,9 @@ const Student = () => {
               background: colorBgContainer,
             }}
           >
-           {
-             option === '1' && <ViewAllComplaints buttonFor="chiefWarden"/>
-           }
-           {
-            option === '2' && <UpdateMessMenu />
-           }
-           {
-            option === '3' && <ViewAllStudents buttonFor="chiefWarden"/>
-           }
-
+            {option === "1" && <ViewAllComplaints buttonFor="chiefWarden" />}
+            {option === "2" && <UpdateMessMenu />}
+            {option === "3" && <ViewAllStudents buttonFor="chiefWarden" />}
           </div>
         </Content>
         <Footer
