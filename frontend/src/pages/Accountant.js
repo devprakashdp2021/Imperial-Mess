@@ -3,17 +3,19 @@ import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import UpdateMessMenu from "../components/UpdateMessMenu";
 import ViewAllStudents from "../components/ViewAllStudents";
+import TrackExpenses from "../components/TrackExpenses";
+import AddDailyExpenses from "../components/AddDailyExpenses";
 
 const { Header, Content, Footer, Sider } = Layout;
-const ChiefWarden = () => {
+const Accountant = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [option, setOption] = useState("1");
-  function handleChangeOption(event) {
-    console.log(event.key);
-    setOption(event.key);
+  const [option, setOption] = useState('1');
+  function handleChangeOption(event){
+    console.log(event.key)
+    setOption(event.key)
   }
   return (
     <Layout style={{ height: "100%" }}>
@@ -34,13 +36,15 @@ const ChiefWarden = () => {
           mode="inline"
           onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
-          items={["View Complaint", "View Mess Menu", "View All Students"].map(
-            (item, index) => ({
-              key: String(index + 1),
-              label: item,
-            })
-          )}
+          items={[
+            "Add Daily Expenses",
+            "Track expenses",
+          ].map((item, index) => ({
+            key: String(index + 1),
+            label: item,
+          }))}
         />
+       
       </Sider>
       <Layout>
         <Header
@@ -49,10 +53,8 @@ const ChiefWarden = () => {
             background: colorBgContainer,
           }}
         >
-          <p style={{ fontSize: "25px", display: "inline" }}>Name</p>
-          <Button style={{ float: "right", margin: "15px" }} type="primary">
-            Logout
-          </Button>
+            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
+            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
         </Header>
         <Content
           style={{
@@ -67,9 +69,13 @@ const ChiefWarden = () => {
               background: colorBgContainer,
             }}
           >
-            {option === "1" && <ViewAllComplaints buttonFor="chiefWarden" />}
-            {option === "2" && <UpdateMessMenu />}
-            {option === "3" && <ViewAllStudents buttonFor="chiefWarden" />}
+           {
+            option === '1' && <AddDailyExpenses />
+           }
+           {
+            option === '2' && <TrackExpenses/>
+           }
+
           </div>
         </Content>
         <Footer
@@ -83,4 +89,4 @@ const ChiefWarden = () => {
     </Layout>
   );
 };
-export default ChiefWarden;
+export default Accountant;

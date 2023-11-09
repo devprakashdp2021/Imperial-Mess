@@ -44,5 +44,45 @@ const UpdateComplaint=asyncHandler(async(req,res)=>{
         });
     }
 });
-
-module.exports = {RegisterComplaint,GetetallComplaint,UpdateComplaint};
+const voteComplaint=asyncHandler(async(req,res)=>{
+    const id=req.body.id;
+    console.log(id);
+    const complaintId=req.params.complaintId;
+    // console.log(complaintId);
+    // console.log(id);
+    try{
+        await Complaint.findByIdAndUpdate(complaintId,{
+            $addToSet:{vote:id},
+            $pull:{downvote:id}
+        })
+        res.status(200).send({
+            success:true,
+            message:"You successfully vote"
+        })
+    }catch(err){
+        res.send({
+            success: false,
+            message: err.message,
+        });
+    }
+});
+const UnvoteComplaint=asyncHandler(async(req,res)=>{
+    const id=req.body.id;
+    const complaintId=req.params.complaintId;
+    try{
+        await Complaint.findByIdAndUpdate(complaintId,{
+            $addToSet:{downvote:id},
+            $pull:{vote:id}
+        })
+        res.status(200).send({
+            success:true,
+            message:"You successfully unvote"
+        })
+    }catch(err){
+        res.send({
+            success: false,
+            message: err.message,
+        });
+    }
+}); 
+module.exports = {RegisterComplaint,GetetallComplaint,UpdateComplaint,voteComplaint,UnvoteComplaint};
