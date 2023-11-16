@@ -11,9 +11,9 @@ function App() {
   const { loading } = useSelector((state) => state.loaders);
   return (
     <div className='App'>
-    {/* <ChiefWarden /> */}
+    <ChiefWarden />
 
-   {loading&&(
+   {/* {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>
       </div>
@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute><Student/></ProtectedRoute>} />
           <Route path="/login" element={<Home/>} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }

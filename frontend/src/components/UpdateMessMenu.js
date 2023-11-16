@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
+import { Button, Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 const originData = [
   {
     key: "1",
@@ -207,9 +207,11 @@ const App = () => {
         editing: isEditing(record),
       }),
     };
+    
   });
   return (
-    <Form form={form} component={false}>
+    <>
+<Form form={form} component={false}>
       <Table
         components={{
           body: {
@@ -223,6 +225,9 @@ const App = () => {
         pagination={false}
       />
     </Form>
+    <Button type="primary" style={{margin:"15px"}} onClick={()=>console.log(data)}>Save Menu</Button>
+    </>
+    
   );
 };
 export default App;
