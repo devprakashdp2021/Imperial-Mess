@@ -3,6 +3,7 @@ import Register from './Register';
 import Slide from './Slide';
 import Login from './Login';
 import { useState } from 'react';
+import './home.css';
 
 function Home() {
     const [isAuthenticated, setAuthenticated] = useState(true);
@@ -10,7 +11,7 @@ function Home() {
     setAuthenticated(!isAuthenticated);
   }
   return (
-    <div>
+    <div className='home'>
       <h1 style={{fontSize:30, margin:"0px", fontFamily: 'Dancing Script'}}>Imperial Mess</h1>
      <Slide />
      <div style={{margin: "10px auto",width:"50%"}}>

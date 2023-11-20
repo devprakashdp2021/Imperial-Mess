@@ -3,9 +3,11 @@ import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import UpdateMessMenu from "../components/UpdateMessMenu";
 import ViewAllStudents from "../components/ViewAllStudents";
+import TrackExpenses from "../components/TrackExpenses";
+import AddDailyExpenses from "../components/AddDailyExpenses";
 
 const { Header, Content, Footer, Sider } = Layout;
-const ChiefWarden = () => {
+const Accountant = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -35,9 +37,8 @@ const ChiefWarden = () => {
           onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
           items={[
-            "View Complaint",
-            "View Mess Menu",
-            "View All Students",
+            "Add Daily Expenses",
+            "Track expenses",
           ].map((item, index) => ({
             key: String(index + 1),
             label: item,
@@ -69,13 +70,10 @@ const ChiefWarden = () => {
             }}
           >
            {
-             option === '1' && <ViewAllComplaints buttonFor="chiefWarden"/>
+            option === '1' && <AddDailyExpenses />
            }
            {
-            option === '2' && <UpdateMessMenu />
-           }
-           {
-            option === '3' && <ViewAllStudents buttonFor="chiefWarden"/>
+            option === '2' && <TrackExpenses/>
            }
 
           </div>
@@ -91,4 +89,4 @@ const ChiefWarden = () => {
     </Layout>
   );
 };
-export default ChiefWarden;
+export default Accountant;

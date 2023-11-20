@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Home from './pages/Home';
 import Student from './pages/Student';
 import ChiefWarden from "./pages/ChiefWarden";
+import Accountant from './pages/Accountant';
 
 function App() {
   const {loading}=useSelector((state)=>state.loaders);
