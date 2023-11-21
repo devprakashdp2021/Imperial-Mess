@@ -35,3 +35,19 @@ export const GetCurrentUser = async() => {
         return error.message;
     }
 }
+export const Getalluser=async()=>{
+    try{
+        const response=await axios.get("/users/get-all-user",config);
+        return response.data;
+    }catch(error){
+        return error.message;
+    }
+}
+export const Blockuser=async(id)=>{
+    try{
+        const response=await axios.put(`/users/block-user/${id}`,config);
+        return response.data;
+    }catch(error){
+        return error.message;
+    }
+}

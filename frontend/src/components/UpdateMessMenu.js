@@ -1,227 +1,103 @@
 import React, { useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Typography } from 'antd';
-const originData = [
-  {
-    key: '1',
-    day: 'Monday',
-    breakfast: 'Idli, Sambar, Milk Bournvita',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '2',
-    day: 'Tuesday',
-    breakfast: 'Aloo Paratha, Curd, Pickle',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '3',
-    day: 'Wednesday',
-    breakfast: 'Sandwich, Milk Bournvita',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '4',
-    day: 'Thursday',
-    breakfast: 'Paneer Paratha, Curd, Pickle',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '5',
-    day: 'Friday',
-    breakfast: 'Sambhar Vada, Milk Bournvita',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '6',
-    day: 'Saturday',
-    breakfast: 'Chola Samosa, Milk Bournvita',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
-  {
-    key: '7',
-    day: 'Sunday',
-    breakfast: 'Poha Jalebi, Milk Bournvita',
-    lunch: 'Rice, Daal, Sabji, Curd, Salad',
-    supper: 'Chai, Samosa',
-    dinner: 'Roti, Sabji, Gulaabjamun',
-  },
+import DayMenu from './DayMenu';
 
-];
+const Menu = () => {
+  const initialMenu = {
+    Monday: {
+      breakfast: 'Toast and Jam',
+      lunch: 'Chicken Curry with Rice',
+      supper: 'Vegetable Pasta',
+      dinner: 'Grilled Salmon with Quinoa',
+    },
+    Tuesday: {
+      breakfast: 'Oatmeal with Fruits',
+      lunch: 'Beef Stir-fry with Noodles',
+      supper: 'Margherita Pizza',
+      dinner: 'Vegetarian Lasagna',
+    },
+    Wednesday: {
+      breakfast: 'Scrambled Eggs with Toast',
+      lunch: 'Pasta Carbonara',
+      supper: 'Vegetable Stir-fry with Tofu',
+      dinner: 'Baked Chicken with Mashed Potatoes',
+    },
+    Thursday: {
+      breakfast: 'Pancakes with Maple Syrup',
+      lunch: 'Vegetable Biryani',
+      supper: 'Cheese and Spinach Quesadillas',
+      dinner: 'Salmon Teriyaki with Brown Rice',
+    },
+    Friday: {
+      breakfast: 'Smoothie Bowl',
+      lunch: 'Chickpea Salad',
+      supper: 'Mushroom Risotto',
+      dinner: 'BBQ Chicken with Roasted Vegetables',
+    },
+    Saturday: {
+      breakfast: 'Waffles with Berries',
+      lunch: 'Caprese Salad',
+      supper: 'Eggplant Parmesan',
+      dinner: 'Shrimp Scampi with Linguine',
+    },
+    Sunday: {
+      breakfast: 'French Toast with Syrup',
+      lunch: 'Quinoa Salad',
+      supper: 'Tomato and Basil Pizza',
+      dinner: 'Beef and Broccoli Stir-fry',
+    },
+  };
 
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  const [menu, setMenu] = useState(initialMenu);
+
+  const handleUpdateMenu = (day, updatedMenu) => {
+    setMenu(prevMenu => ({
+      ...prevMenu,
+      [day]: updatedMenu,
+    }));
+  };
+
   return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
-const App = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
-  const isEditing = (record) => record.key === editingKey;
-  const edit = (record) => {
-    form.setFieldsValue({
-      day: '',
-      breakfast: '',
-      lunch: '',
-      supper: '',
-      dinner: '',
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
-  const cancel = () => {
-    setEditingKey('');
-  };
-  const save = async (key) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey('');
-      }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
-    }
-  };
-  const columns = [
-    {
-      title: 'Day',
-      dataIndex: 'day',
-      width: '15%',
-      
-    },
-    {
-      title: 'Breakfast',
-      dataIndex: 'breakfast',
-      width: '20%',
-      editable: true,
-    },
-    {
-      title: 'Lunch',
-      dataIndex: 'lunch',
-      width: '20%',
-      editable: true,
-    },
-    {
-      title: 'Supper',
-      dataIndex: 'supper',
-      width: '20%',
-      editable: true,
-    },
-    {
-      title: 'Dinner',
-      dataIndex: 'dinner',
-      width: '20%',
-      editable: true,
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
-  ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  return (
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
+    <div style={{ margin: '20px' }}>
+      <table
+        style={{
+          borderCollapse: 'collapse',
+          width: '100%',
+          marginTop: '20px',
+          borderRadius: '8px',
+          overflow: 'hidden',
         }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={false}
-      />
-    </Form>
+      >
+        <thead>
+          <tr style={{ border: '1px solid #ddd', background: '#f2f2f2' }}>
+            <th style={styles.tableHeader}>Day</th>
+            <th style={styles.tableHeader}>Breakfast</th>
+            <th style={styles.tableHeader}>Lunch</th>
+            <th style={styles.tableHeader}>Supper</th>
+            <th style={styles.tableHeader}>Dinner</th>
+            <th style={styles.tableHeader}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(menu).map(day => (
+            <DayMenu
+              key={day}
+              day={day}
+              menu={menu[day]}
+              onUpdate={handleUpdateMenu}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
-export default App;
+
+const styles = {
+  tableHeader: {
+    border: '1px solid #ddd',
+    padding: '12px',
+    textAlign: 'left',
+  },
+};
+
+export default Menu;

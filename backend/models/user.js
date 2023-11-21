@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     hostel:{
        type:String,
     },
+    isActive:{
+        type:Boolean,
+        default:true,
+    }
 }, {
     timestamps: true,
 });
