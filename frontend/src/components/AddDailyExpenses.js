@@ -1,130 +1,61 @@
-import React, { useState } from "react";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Space } from "antd";
+// src/App.js
+import React, { useState } from 'react';
+import FoodItem from './FoodItem';
+import { Button } from 'antd';
 
-function AddDailyExpenses() {
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+const App = () => {
+  const [foodItems, setFoodItems] = useState([]);
 
-  function handlePrice(e){
-     if(quantity){
-      setPrice(e.target.value);
-      setTotalPrice(quantity*(e.target.value));
-     }
-  }
-
-  const onFinish = (values) => {
-    console.log("Received values of form:", values);
+  const handleItemChange = (id, updatedItem) => {
+    setFoodItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, ...updatedItem } : item))
+    );
   };
+
+  const handleAddItem = () => {
+    setFoodItems((prevItems) => [
+      ...prevItems,
+      { id: Date.now(), name: '', price: 0, quantity: 1 },
+    ]);
+  };
+
+  const handleRemoveItem = (id) => {
+    setFoodItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const calculateTotal = () => {
+    const total = foodItems.reduce((acc, item) => {
+      const itemTotal = item.price * item.quantity;
+  
+      // Check if itemTotal is a valid number (not NaN or undefined)
+      if (!isNaN(itemTotal) && itemTotal !== undefined) {
+        return acc + itemTotal;
+      }
+  
+      return acc;
+    }, 0);
+  
+    // Check if the total is a valid number (not NaN or undefined)
+    return !isNaN(total) && total !== undefined ? total : 0;
+  };
+
   return (
-    <>
-      <Form
-        name="dynamic_form_nest_item"
-        onFinish={onFinish}
-        style={{
-          maxWidth: 600,
-        }}
-        autoComplete="off"
-      >
-        <Form.List name="users">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Space
-                  key={key}
-                  style={{
-                    display: "flex",
-                    marginBottom: 8,
-                  }}
-                  align="baseline"
-                >
-                  <Form.Item
-                    {...restField}
-                    name={[name, "item"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Missing item name",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Item Name" />
-                  </Form.Item>
-
-                  <Form.Item
-                    {...restField}
-                    name={[name, "quantity"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Missing quantity",
-                      },
-                    ]}
-                  >
-                    <Input
-                      value={quantity}
-                      placeholder="Item Quantity"
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    {...restField}
-                    name={[name, "price"]}
-                    rules={[
-                      {
-                        required: true,
-                        message: "Missing item price",
-                      },
-                    ]}
-                  >
-                    <Input
-                      value={price}
-                      placeholder="Item price(kg/l)"
-                      onChange={handlePrice}
-                    />
-                 
-                  </Form.Item>
-
-                  {quantity!==0 && price!==0 && (
-                    <Form.Item
-                      {...restField}
-                      name={[name, "totalPrice"]}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Missing total price",
-                        },
-                      ]}
-                    >
-                      <Input value={totalPrice} placeholder={'Rs. ' + totalPrice} />
-                    </Form.Item>
-                  )}
-
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  Add more item
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" onClick={onFinish}>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
+    <div>
+      <h1>Daily Mess Expenses</h1>
+      {foodItems.map((item) => (
+        <FoodItem
+          key={item.id}
+          item={item}
+          onItemChange={handleItemChange}
+          onItemRemove={handleRemoveItem}
+        />
+      ))}
+      <Button onClick={handleAddItem}>Add Item</Button>
+      <div>
+        <h2>Total: Rs. {calculateTotal()}</h2>
+      </div>
+    </div>
   );
-}
-export default AddDailyExpenses;
+};
+
+export default App;

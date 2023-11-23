@@ -9,7 +9,7 @@ const {
 const authMiddleware=require("../middlewares/authMiddleware")
 const router=express.Router();
 router.post("/add-complaint",authMiddleware,RegisterComplaint);
-router.get("/get-all-complaint",authMiddleware,GetetallComplaint);
+router.get("/get-all-complaint",GetetallComplaint);
 router.post("/delete-complaint",authMiddleware,UpdateComplaint);
 router.put("/vote/:complaintId",voteComplaint);
 router.put("/unvote/:complaintId",UnvoteComplaint);

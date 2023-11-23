@@ -14,6 +14,7 @@ function ViewAllComplaints(props) {
       // console.log(user);
       dispatch(ShowLoading());
       let  response = await GetAllComplaint();
+          dispatch(HideLoading());
           if(response.success){
               setData(response.data.map((item,index)=>({
                   key:index+1,
@@ -27,10 +28,10 @@ function ViewAllComplaints(props) {
               )
               // console.log(response.data)
           }else{
+            dispatch(HideLoading());
               message.error(response.message);
           }
           setLoading(false);
-          dispatch(HideLoading());
       } catch (error) {
           dispatch(HideLoading());
           message.error(error.message);

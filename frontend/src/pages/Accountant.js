@@ -59,6 +59,7 @@ const Accountant = () => {
         <Content
           style={{
             margin: "24px 16px 0",
+            height: "78vh",
             overflow: "auto",
           }}
         >

@@ -9,21 +9,21 @@ import Accountant from './pages/Accountant';
 
 function App() {
   const { loading } = useSelector((state) => state.loaders);
+  const { user } = useSelector((state) => state.users);
   return (
     <div className='App'>
-    <ChiefWarden />
-
-   {/* {loading&&(
+   
+   {loading&&(
       <div className="loader-parent">
       <div className="loader"></div>
       </div>
     )}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute><Student/></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><Accountant/></ProtectedRoute>} />
           <Route path="/login" element={<Home/>} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }
