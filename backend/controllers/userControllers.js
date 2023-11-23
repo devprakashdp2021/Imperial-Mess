@@ -4,11 +4,14 @@ const bcrypt=require("bcrypt");
 const authUser = asyncHandler(async (req, res) => {
     const user=await User.findOne({gsuiteid:req.body.gsuiteid});
     if(!user){
-        res.status(400).send({message:"invalid gsuiteid or password"});
+        res.status(400).send({success:false,message:"invalid gsuiteid or password"});
+    }
+    if(user&&!user.isActive){
+      res.status(400).send({success:false,message:"Your Account has been blocked! Please contact your warden sir."})
     }
     const validate=await bcrypt.compare(req.body.password,user.password);
     if(!validate){
-        res.status(400).send({message:"invalid gsuiteid or password"});
+        res.status(400).send({success:false,message:"invalid gsuiteid or password"});
     }
     const token=user.generateAuthToken();
     user.__v=undefined;
@@ -17,11 +20,15 @@ const authUser = asyncHandler(async (req, res) => {
 
   const registerUser = asyncHandler(async (req, res) => {
     const {error} =validate(req.body);
-    if(error)return res.status(400).send({message:error.details[0].message});
+    if(error)return res.status(400).send({success:false,message:error.details[0].message});
 
     const user=await User.findOne({gsuiteid:req.body.gsuiteid});
     if(user){
-       return res.status(403).send({message:"user with given data already exit"}) 
+       return res.status(403).send({success:false,message:"user with given data already exit"}) 
+    }
+    const collegename=(req.body.gsuiteid.split("@")[1]).split(".")[0];
+    if(collegename!="mnnit"){
+      return res.status(400).send({success:false,message:"Please Register with your college mail id"});
     }
     const salt=await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword=await bcrypt.hash(req.body.password,salt);
@@ -51,5 +58,43 @@ const authUser = asyncHandler(async (req, res) => {
       });
     }
   });
-
-module.exports = {registerUser, authUser,getuser};
+  const Blockuser=asyncHandler(async (req, res) => {
+    try {
+      // console.log(req.body)
+      const userid=req.params.id;
+      const user = await User.findById(userid);
+      if(user.isActive){
+        user.isActive=false;
+      }else{
+        user.isActive=true;
+      }
+      user.save();
+      console.log(user);
+      res.send({
+        success: true,
+        message: "User Blocked successfully",
+      });
+    } catch (error) {
+        console.log(error.message);
+      res.send({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
+  const GetetallUser=asyncHandler(async(req,res)=>{
+    try {
+        const complaints = await User.find();
+        res.send({
+            success: true,
+            message: "User fetched successfully",
+            data:complaints,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+module.exports = {registerUser, authUser,getuser,Blockuser,GetetallUser};
