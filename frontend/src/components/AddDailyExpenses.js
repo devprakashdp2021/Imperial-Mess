@@ -1,9 +1,28 @@
-// src/App.js
 import React, { useState } from 'react';
 import FoodItem from './FoodItem';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import { AddMessDailyExpense } from '../apicalls/messDailyExpenses';
+import { HideLoading, ShowLoading } from '../redux/loadersSlice';
+import { useDispatch } from 'react-redux';
+
+let dateObj = new Date();
+let month = String(dateObj.getMonth() + 1).padStart(2, "0");
+let day = String(dateObj.getDate()).padStart(2, "0");
+let year = dateObj.getFullYear();
+let date = day + "/" + month + "/" + year;
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+console.log(date);
 
 const App = () => {
+  const dispatch = useDispatch();
   const [foodItems, setFoodItems] = useState([]);
 
   const handleItemChange = (id, updatedItem) => {
@@ -23,6 +42,27 @@ const App = () => {
     setFoodItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const handleSubmit = async () => {
+    // console.log(foodItems);
+    let totalAmount = calculateTotal();
+    const values = {date: date,  items: foodItems, totalAmount: totalAmount};
+     
+    try {
+      console.log(values);
+      dispatch(ShowLoading());
+      let response = await AddMessDailyExpense(values);
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  }
+
   const calculateTotal = () => {
     const total = foodItems.reduce((acc, item) => {
       const itemTotal = item.price * item.quantity;
@@ -40,7 +80,13 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
+      <div>
+        Day: {weekday[new Date().getDay()]}
+        <br />
+        Date: {date}
+      </div>
+      <div>
       <h1>Daily Mess Expenses</h1>
       {foodItems.map((item) => (
         <FoodItem
@@ -50,11 +96,14 @@ const App = () => {
           onItemRemove={handleRemoveItem}
         />
       ))}
-      <Button onClick={handleAddItem}>Add Item</Button>
+      <Button style={{margin: "10px"}} onClick={handleAddItem}>Add Item</Button>
+      <Button type="primary" onClick={handleSubmit}>Submit</Button>
       <div>
         <h2>Total: Rs. {calculateTotal()}</h2>
       </div>
     </div>
+    </>
+    
   );
 };
 

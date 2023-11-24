@@ -50,6 +50,7 @@ const Menu = () => {
   const [menu, setMenu] = useState(initialMenu);
 
   const handleUpdateMenu = (day, updatedMenu) => {
+    // console.log(day, updatedMenu);
     setMenu(prevMenu => ({
       ...prevMenu,
       [day]: updatedMenu,

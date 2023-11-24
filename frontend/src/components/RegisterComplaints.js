@@ -35,6 +35,7 @@ function RegisterComplaints() {
       message.error(error.message);
     }
   };
+  
   function handleComplaintType(value) {
     console.log(value);
     setComplaintType(value);

@@ -10,6 +10,7 @@ const DayMenu = ({ day, menu, onUpdate }) => {
   const handleSaveClick = () => {
     setEditing(false);
     onUpdate(day, menu);
+    console.log(day, menu);
   };
 
   const handleInputChange = (meal, e) => {

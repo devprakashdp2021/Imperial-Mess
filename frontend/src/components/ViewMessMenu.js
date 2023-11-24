@@ -32,6 +32,7 @@ const columns = [
     width: "20%",
   },
 ];
+
 const data = [
   {
     key: "1",
@@ -90,6 +91,7 @@ const data = [
     dinner: "paneer",
   },
 ];
+
 const ViewMessMenu = () => (
   <Table columns={columns} dataSource={data} pagination={false} />
 );
