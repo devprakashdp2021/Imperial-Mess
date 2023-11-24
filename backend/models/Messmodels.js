@@ -3,46 +3,46 @@ const mongoose = require("mongoose");
 const messSchema = new mongoose.Schema(
     {
       Monday: {
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"},
       },
       Tuesday: {
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       Wednesday: {
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       Thrusday: {
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       Friday:{
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       Saturday:{
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       Sunday:{
-        Breakfast:{type:String},
-        Lunch:{type:String},
-        Snack:{type:String},
-        Dinner:{type:String}
+        Breakfast:{type:String,default:"please enter mess item"},
+        Lunch:{type:String,default:"please enter mess item"},
+        Snack:{type:String,default:"please enter mess item"},
+        Dinner:{type:String,default:"please enter mess item"}
       },
       hostel:{
         type:String
