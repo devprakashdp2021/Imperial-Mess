@@ -11,6 +11,10 @@ import { useSelector } from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 const Accountant = () => {
   const navigate = useNavigate();
+  function handleLogout(event) {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   const { user } = useSelector((state) => state.users);
   const {
     token: { colorBgContainer },
@@ -59,7 +63,7 @@ const Accountant = () => {
         >
             <p style={{fontSize:"25px", display:"inline"}}>{user ? user.name : "NAME"}</p>
             <p style={{fontSize:"25px", display:"inline"}}> [{user ? user.role : " ROLE"}]</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
+            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
         </Header>
         <Content
           style={{
