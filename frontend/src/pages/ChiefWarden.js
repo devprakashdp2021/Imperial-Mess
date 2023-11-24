@@ -22,7 +22,7 @@ const ChiefWarden = () => {
     setOption(event.key)
   }
   return (
-    <Layout style={{ height: "100%" }}>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
