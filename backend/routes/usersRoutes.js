@@ -13,5 +13,5 @@ router.post("/",registerUser);
 router.post("/login",authUser);
 router.get("/get-current-user",authMiddleware,getuser)
 router.put("/block-user/:id",Blockuser);
-router.get("/get-all-user",GetetallUser);
+router.get("/get-all-user/:id",GetetallUser);
 module.exports=router;

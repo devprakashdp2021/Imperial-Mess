@@ -28,6 +28,7 @@ function RegisterComplaints() {
 
   const onFinish = async(values) => {
     values.owner = user._id;
+    values.hostel=user.hostel;
     console.log(values)
     try {
     dispatch(ShowLoading());

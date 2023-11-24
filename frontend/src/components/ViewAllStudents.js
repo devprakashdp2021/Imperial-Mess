@@ -11,13 +11,14 @@ const ViewAllStudents = (props) => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [isLoading,setLoading]=useState(true);
+  const {user} = useSelector((state) => state.users);
   const[data,setData]=useState({});
   const dispatch = useDispatch();
   async function fetchalluser (){
     try {
       // console.log(user);
       dispatch(ShowLoading());
-      let  response = await Getalluser();
+      let  response = await Getalluser(user._id);
           if(response.success){
               setData(response.data.map((item,index)=>({
                   key:index+1,

@@ -84,11 +84,16 @@ const authUser = asyncHandler(async (req, res) => {
   });
   const GetetallUser=asyncHandler(async(req,res)=>{
     try {
-        const complaints = await User.find();
+       const id=req.params.id;
+      //  console.log(id);
+       const user=await User.findById(id);
+      //  console.log(user);
+      //  console.log(user.hostel);
+      const allUser = await User.find({hostel:user.hostel,role:"Student"}).exec();
         res.send({
             success: true,
             message: "User fetched successfully",
-            data:complaints,
+            data:allUser,
         });
     } catch (error) {
         res.send({

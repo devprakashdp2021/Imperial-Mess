@@ -3,13 +3,19 @@ import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import UpdateMessMenu from "../components/UpdateMessMenu";
 import ViewAllStudents from "../components/ViewAllStudents";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const ChiefWarden = () => {
+  const navigate = useNavigate();
+  function handleLogout(event) {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  const {user} = useSelector((state) => state.users);
   const [option, setOption] = useState('1');
   function handleChangeOption(event){
     console.log(event.key)
@@ -52,8 +58,8 @@ const ChiefWarden = () => {
             background: colorBgContainer,
           }}
         >
-            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
+            <p style={{fontSize:"25px", display:"inline"}}>{user.name?user.name:"Name"}</p>
+            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
         </Header>
         <Content
           style={{

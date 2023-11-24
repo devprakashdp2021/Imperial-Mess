@@ -1,15 +1,34 @@
 import React, { useState } from 'react';
-
-const DayMenu = ({ day, menu, onUpdate }) => {
+import { UpdateMenu } from '../apicalls/MessMenuapi';
+import { HideLoading, ShowLoading } from '../redux/loadersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Input, Space, Table ,message} from 'antd'; 
+const DayMenu = ({ day, menu, onUpdate, shownFor }) => {
+  const dispatch = useDispatch();
   const [isEditing, setEditing] = useState(false);
-
+  const {user} = useSelector((state) => state.users);
   const handleEditClick = () => {
     setEditing(true);
   };
 
-  const handleSaveClick = () => {
-    setEditing(false);
-    onUpdate(day, menu);
+  const handleSaveClick =async() => {
+      try {
+        dispatch(ShowLoading());
+         const response=await UpdateMenu({day:day,food:menu,hostel:user.hostel});
+         if(response.success){
+           dispatch(HideLoading());
+          // console.log(response.data)
+           setEditing(false);
+           onUpdate(day, menu);
+           console.log(day,menu);
+
+         }else{
+          message.error(response.message);
+         }
+       } catch (error) {
+        dispatch(HideLoading());
+        message.error(error.message);
+       }
   };
 
   const handleInputChange = (meal, e) => {
@@ -32,13 +51,14 @@ const DayMenu = ({ day, menu, onUpdate }) => {
           )}
         </td>
       ))}
-      <td style={styles.tableCell}>
+      {shownFor === "accountant" && <td style={styles.tableCell}>
         {isEditing ? (
           <button onClick={handleSaveClick}>Save</button>
         ) : (
           <button onClick={handleEditClick}>Edit</button>
         )}
-      </td>
+      </td>}
+      
     </tr>
   );
 };

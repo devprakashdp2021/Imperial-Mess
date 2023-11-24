@@ -26,6 +26,10 @@ const complaintSchema = new mongoose.Schema(
       downvote:{
         type:[mongoose.Schema.Types.ObjectId],
         ref:"user",
+      },
+      hostel:{
+        type:String,
+        required:true,
       }
     },
     {timestamps: true}
