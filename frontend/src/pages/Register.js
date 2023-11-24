@@ -51,12 +51,14 @@ const Register = ({ handleLoginNow }) => {
     try {
       dispatch(ShowLoading());
       const response = await RegisterUser(values);
+      // console.log(response)
       dispatch(HideLoading());
       if (response.success) {
         message.success(response.message);
         // navigate("/login");
         handleLoginNow();
       } else {
+        // console.log(response.message);
         message.error(response.message);
       }
     } catch (error) {
