@@ -37,3 +37,16 @@
 
 
 *P.S:* All are divided according to their hostels.
+
+
+**How to run this project on your local system**
+1. Clone this repository
+2. Add an .env file into the backend directory
+3. Install all the dependencies by runnig "npm i"
+4. Start the backend server by runnig "nodemon index.js"
+5. Start the frontend by running "npm satrt"
+
+**.env file structure**
+1. **mongo_url =** "your_mongodb_url"
+2. **JWTPRIVATEKEY =** "your_jwt_private_key"
+3. **SALT =** "your_salt_value"
