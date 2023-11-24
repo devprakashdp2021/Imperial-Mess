@@ -38,12 +38,12 @@ function ProtectedRoute({children}){
         console.log(error.message);
         message.error(error.message);
     }
-}
-useEffect(()=>{
-    if(localStorage.getItem('token')){
-        getCurrentUser();
-    }else{
-        navigate('/login');
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getCurrentUser();
+    } else {
+      navigate("/login");
     }
 },[])
 if(isLoading){
@@ -59,4 +59,4 @@ if(isLoading){
   );
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;

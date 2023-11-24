@@ -4,14 +4,14 @@ const bcrypt=require("bcrypt");
 const authUser = asyncHandler(async (req, res) => {
     const user=await User.findOne({gsuiteid:req.body.gsuiteid});
     if(!user){
-        res.status(400).send({success:false,message:"invalid gsuiteid or password"});
+        res.status(200).send({success:false,message:"invalid gsuiteid or password"});
     }
     if(user&&!user.isActive){
-      res.status(400).send({success:false,message:"Your Account has been blocked! Please contact your warden sir."})
+      res.status(200).send({success:false,message:"Your Account has been blocked! Please contact your warden sir."})
     }
     const validate=await bcrypt.compare(req.body.password,user.password);
     if(!validate){
-        res.status(400).send({success:false,message:"invalid gsuiteid or password"});
+        res.status(200).send({success:false,message:"invalid gsuiteid or password"});
     }
     const token=user.generateAuthToken();
     user.__v=undefined;
@@ -28,7 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
     const collegename=(req.body.gsuiteid.split("@")[1]).split(".")[0];
     if(collegename!="mnnit"){
-      return res.status(400).send({success:false,message:"Please Register with your college mail id"});
+      return res.status(200).send({success:false,message:"Please Register with your college mail id"});
     }
     const salt=await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword=await bcrypt.hash(req.body.password,salt);

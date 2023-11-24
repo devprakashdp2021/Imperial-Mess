@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Flex, Table, message } from "antd";
 import { GetAllComplaint } from "../apicalls/complaints";
 import { HideLoading, ShowLoading } from '../redux/loadersSlice';
@@ -27,10 +27,10 @@ function ViewAllComplaints(props) {
               )
               // console.log(response.data)
           }else{
+            dispatch(HideLoading());
               message.error(response.message);
           }
           setLoading(false);
-          dispatch(HideLoading());
       } catch (error) {
           dispatch(HideLoading());
           message.error(error.message);
@@ -122,25 +122,25 @@ function ViewAllComplaints(props) {
     return <div> Loading....</div>;
   }
   return (
-   <>
-     <Table
-      columns={columns}
-      expandable={{
-        expandedRowRender: (record) => (
-          <p
-            style={{
-              margin: 0,
-            }}
-          >
-            {record.description}
-          </p>
-        ),
-      }}
-      dataSource={data}
-      pagination={false}
-    />
-    {/* {console.log(data)} */}
-   </>
+    <>
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p
+              style={{
+                margin: 0,
+              }}
+            >
+              {record.description}
+            </p>
+          ),
+        }}
+        dataSource={data}
+        pagination={false}
+      />
+      {/* {console.log(data)} */}
+    </>
   );
 }
 export default ViewAllComplaints;

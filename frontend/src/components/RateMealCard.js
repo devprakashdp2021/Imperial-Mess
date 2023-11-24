@@ -67,4 +67,4 @@ function RateMealCard(props) {
   )
 }
 
-export default RateMealCard
+export default RateMealCard;

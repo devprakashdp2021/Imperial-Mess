@@ -40,16 +40,13 @@ const ChiefWarden = () => {
           mode="inline"
           onSelect={handleChangeOption}
           defaultSelectedKeys={["1"]}
-          items={[
-            "View Complaint",
-            "View Mess Menu",
-            "View All Students",
-          ].map((item, index) => ({
-            key: String(index + 1),
-            label: item,
-          }))}
+          items={["View Complaint", "View Mess Menu", "View All Students"].map(
+            (item, index) => ({
+              key: String(index + 1),
+              label: item,
+            })
+          )}
         />
-       
       </Sider>
       <Layout>
         <Header
@@ -74,16 +71,9 @@ const ChiefWarden = () => {
               background: colorBgContainer,
             }}
           >
-           {
-             option === '1' && <ViewAllComplaints buttonFor="chiefWarden"/>
-           }
-           {
-            option === '2' && <UpdateMessMenu />
-           }
-           {
-            option === '3' && <ViewAllStudents buttonFor="chiefWarden"/>
-           }
-
+            {option === "1" && <ViewAllComplaints buttonFor="chiefWarden" />}
+            {option === "2" && <UpdateMessMenu />}
+            {option === "3" && <ViewAllStudents buttonFor="chiefWarden" />}
           </div>
         </Content>
         <Footer

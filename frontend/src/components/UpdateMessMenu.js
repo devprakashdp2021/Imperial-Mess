@@ -54,6 +54,7 @@ const Menu = () => {
   const [menu, setMenu] = useState();
   const [isLoading,setLoading]=useState(true);
   const handleUpdateMenu = (day, updatedMenu) => {
+    // console.log(day, updatedMenu);
     setMenu(prevMenu => ({
       ...prevMenu,
       [day]: updatedMenu,

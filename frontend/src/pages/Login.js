@@ -1,14 +1,8 @@
-import React ,{useEffect} from 'react';
+import React, { useEffect } from "react";
 
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  message,
-} from 'antd';
-import {Link,useNavigate} from 'react-router-dom';
-import { LoginUser } from '../apicalls/users';
+import { Button, Form, Input, Select, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from "../apicalls/users";
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../redux/loadersSlice";
 
@@ -42,33 +36,32 @@ const tailFormItemLayout = {
     },
   },
 };
-const Login = ({handleRegisterNow}) => {
+const Login = ({ handleRegisterNow }) => {
   const [form] = Form.useForm();
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const onFinish =async (values) => {
-    try{
-     dispatch(ShowLoading());
-     const response=await LoginUser(values);
-     if(response.success){
-       message.success(response.message);
-       console.log(response.data)
-       localStorage.setItem("token",response.data);
-       window.location.href="/";
-     }else{
-       message.error(response.message);
-     }
-    }catch(error){
-     dispatch(HideLoading());
-     message.error(error.message);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const onFinish = async (values) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await LoginUser(values);
+      if (response.success) {
+        message.success(response.message);
+        console.log(response.data);
+        localStorage.setItem("token", response.data);
+        window.location.href = "/";
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
     }
- }
- useEffect(()=>{
-   if(localStorage.getItem("token")){
-     navigate("/");
-   }
- })
-
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
     <Form
@@ -81,8 +74,6 @@ const Login = ({handleRegisterNow}) => {
       }}
       scrollToFirstError
     >
-    
-
       <Form.Item
         name="gsuiteid"
         label="G-suite ID"
@@ -93,7 +84,7 @@ const Login = ({handleRegisterNow}) => {
           // },
           {
             required: true,
-            message: 'Please input your g-suite id!',
+            message: "Please input your g-suite id!",
           },
         ]}
       >
@@ -106,7 +97,7 @@ const Login = ({handleRegisterNow}) => {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: "Please input your password!",
           },
         ]}
         hasFeedback
@@ -119,9 +110,11 @@ const Login = ({handleRegisterNow}) => {
           Login
         </Button>
         <br />
-        Or <Link to="" onClick={handleRegisterNow}>register now!</Link>
+        Or{" "}
+        <Link to="" onClick={handleRegisterNow}>
+          register now!
+        </Link>
       </Form.Item>
-      
     </Form>
   );
 };

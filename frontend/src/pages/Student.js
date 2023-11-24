@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 const Student = () => {
-  const {user} = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.users);
   const navigate = useNavigate();
   const {
     token: { colorBgContainer },
@@ -60,9 +60,10 @@ const Student = () => {
             background: colorBgContainer,
           }}
         >
-          <p style={{ fontSize: "25px", display: "inline" }}>{user?user.name:"NAME"}</p>
+          <p style={{ fontSize: "25px", display: "inline" }}>
+            {user ? user.name : "NAME"}
+          </p>
           <Button
-             
             style={{ float: "right", margin: "15px" }}
             type="primary"
             onClick={handleLogout}
@@ -84,7 +85,7 @@ const Student = () => {
             }}
           >
             {option === "1" && <RegisterComplaints />}
-            {option === "2" && <ViewAllComplaints buttonFor="student"/>}
+            {option === "2" && <ViewAllComplaints buttonFor="student" />}
             {option === "3" && <ViewMessMenu />}
             {option === "4" && <RateDailyMeal />}
           </div>

@@ -6,8 +6,8 @@ import { useState } from 'react';
 import './home.css';
 
 function Home() {
-    const [isAuthenticated, setAuthenticated] = useState(true);
-  function handleAuthentication(){
+  const [isAuthenticated, setAuthenticated] = useState(true);
+  function handleAuthentication() {
     setAuthenticated(!isAuthenticated);
   }
   return (
@@ -20,7 +20,7 @@ function Home() {
       }
      </div>
     </div>
-  )
+  );
 }
 
 export default Home;

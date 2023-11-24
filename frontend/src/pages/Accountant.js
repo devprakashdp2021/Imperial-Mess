@@ -5,9 +5,17 @@ import UpdateMessMenu from "../components/UpdateMessMenu";
 import ViewAllStudents from "../components/ViewAllStudents";
 import TrackExpenses from "../components/TrackExpenses";
 import AddDailyExpenses from "../components/AddDailyExpenses";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { Header, Content, Footer, Sider } = Layout;
 const Accountant = () => {
+  const navigate = useNavigate();
+  function handleLogout(event) {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
+  const { user } = useSelector((state) => state.users);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -53,12 +61,14 @@ const Accountant = () => {
             background: colorBgContainer,
           }}
         >
-            <p style={{fontSize:"25px", display:"inline"}}>Name</p>
-            <Button style={{float:"right", margin:"15px"}}type="primary">Logout</Button> 
+            <p style={{fontSize:"25px", display:"inline"}}>{user ? user.name : "NAME"}</p>
+            <p style={{fontSize:"25px", display:"inline"}}> [{user ? user.role : " ROLE"}]</p>
+            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
         </Header>
         <Content
           style={{
             margin: "24px 16px 0",
+            height: "78vh",
             overflow: "auto",
           }}
         >

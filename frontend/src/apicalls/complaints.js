@@ -1,10 +1,10 @@
 import axios from "axios";
 const config = {
-    headers:{
-        'Content-type':'application/json',
-        authorization:`Bearer ${localStorage.getItem('token')}`
-    }
-  };
+  headers: {
+    "Content-type": "application/json",
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+};
 
 export const RegisterComplaint = async (payload) => {
     try {
