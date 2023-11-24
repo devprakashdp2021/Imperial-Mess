@@ -3,24 +3,23 @@ import { Button, Flex, Layout, Menu, theme } from "antd";
 import ViewAllComplaints from "../components/ViewAllComplaints";
 import UpdateMessMenu from "../components/UpdateMessMenu";
 import ViewAllStudents from "../components/ViewAllStudents";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const ChiefWarden = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.users);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
-  const [option, setOption] = useState("1");
-  function handleChangeOption(event) {
-    console.log(event.key);
-    setOption(event.key);
-  }
   function handleLogout(event) {
     localStorage.removeItem("token");
     navigate("/login");
+  }
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  const {user} = useSelector((state) => state.users);
+  const [option, setOption] = useState('1');
+  function handleChangeOption(event){
+    console.log(event.key)
+    setOption(event.key)
   }
   return (
     <Layout style={{ height: "100%" }}>
@@ -56,10 +55,8 @@ const ChiefWarden = () => {
             background: colorBgContainer,
           }}
         >
-          <p style={{ fontSize: "25px", display: "inline" }}>{user ? user.name : "NAME"}</p>
-          <Button style={{ float: "right", margin: "15px" }} type="primary" onClick={handleLogout}>
-            Logout
-          </Button>
+            <p style={{fontSize:"25px", display:"inline"}}>{user.name?user.name:"Name"}</p>
+            <Button style={{float:"right", margin:"15px"}}type="primary" onClick={handleLogout}>Logout</Button> 
         </Header>
         <Content
           style={{

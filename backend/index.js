@@ -7,6 +7,7 @@ const messRoutes=require("./routes/messRoutes.js");
 const messDailyExpenseRoutes=require("./routes/messDailyExpenseRoutes.js");
 const messItemRoutes=require("./routes/messItemRoutes.js");
 
+const foodratingRoutes=require("./routes/FoodratingRoutes.js");
 app.use(cors())
 app.use(express.json());
 require("dotenv").config();
@@ -16,6 +17,7 @@ app.use("/api/complaints", theatresRoute);
 app.use("/api/mess",messRoutes);
 app.use("/api/messDailyExpense",messDailyExpenseRoutes);
 app.use("/api/messItem",messItemRoutes);
+app.use("/api/rating",foodratingRoutes);
 const port = process.env.PORT || 5000;
 
 app.listen(port, ()=>console.log(`Node JS server is running on port ${port}`));

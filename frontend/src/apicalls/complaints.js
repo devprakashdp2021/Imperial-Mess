@@ -7,20 +7,16 @@ const config = {
 };
 
 export const RegisterComplaint = async (payload) => {
-  try {
-    const response = await axios.post(
-      "/complaints/add-complaint",
-      payload,
-      config
-    );
-    return response.data;
-  } catch (error) {
-    return error.message;
-  }
-};
-export const GetAllComplaint = async () => {
     try {
-        const response = await axios.get("/complaints/get-all-complaint",config);
+        const response = await axios.post("/complaints/add-complaint", payload,config);
+        return response.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+export const GetAllComplaint = async (id) => {
+    try {
+        const response = await axios.get(`/complaints/get-all-complaint/${id}`,config);
         // console.log(response.data)
         return response.data;
     } catch (error) {
@@ -42,6 +38,14 @@ export const handleupVote =async(payload) =>{
 export const handledownVote=async(payload)=>{
     try{
         const response=await axios.put(`/complaints/unvote/${(payload.complaint)._id}`,{id:payload.user._id},config);
+        return response.data;
+    }catch(error){
+        return error.message;
+    }
+}
+export const handleDelete=async(payload)=>{
+    try{
+        const response=await axios.delete(`/complaints/delete-complaint/${(payload.complaint)._id}`,config);
         return response.data;
     }catch(error){
         return error.message;

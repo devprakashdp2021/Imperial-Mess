@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Complaint=require("../models/complaintmodel");
+const {User,validate}=require("../models/user");
 const RegisterComplaint = asyncHandler(async (req, res) => {
     try {
         const newComplaint = new Complaint(req.body);
@@ -17,7 +18,9 @@ const RegisterComplaint = asyncHandler(async (req, res) => {
 });
 const GetetallComplaint=asyncHandler(async(req,res)=>{
     try {
-        const complaints = await Complaint.find().populate('owner').sort({createdAt: -1});
+        const id=req.params.id;
+        const user=await User.findById(id);
+        const complaints = await Complaint.find({hostel:user.hostel}).populate('owner').sort({createdAt: -1});
         res.send({
             success: true,
             message: "Complaint fetched successfully",
@@ -30,9 +33,10 @@ const GetetallComplaint=asyncHandler(async(req,res)=>{
         });
     }
 });
-const UpdateComplaint=asyncHandler(async(req,res)=>{
+const DeleteComplaint=asyncHandler(async(req,res)=>{
     try {
-        await Complaint.findByIdAndDelete(req.body.complaintId);
+        const id=req.params.id;
+        await Complaint.findByIdAndDelete(id);
         res.send({
             success: true,
             message: "Complaint delete successfully",
@@ -85,4 +89,4 @@ const UnvoteComplaint=asyncHandler(async(req,res)=>{
         });
     }
 }); 
-module.exports = {RegisterComplaint,GetetallComplaint,UpdateComplaint,voteComplaint,UnvoteComplaint};
+module.exports = {RegisterComplaint,GetetallComplaint,DeleteComplaint,voteComplaint,UnvoteComplaint};

@@ -35,9 +35,9 @@ export const GetCurrentUser = async() => {
         return error.message;
     }
 }
-export const Getalluser=async()=>{
+export const Getalluser=async(id)=>{
     try{
-        const response=await axios.get("/users/get-all-user",config);
+        const response=await axios.get(`/users/get-all-user/${id}`,config);
         return response.data;
     }catch(error){
         return error.message;

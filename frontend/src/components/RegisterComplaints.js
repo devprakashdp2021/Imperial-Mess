@@ -20,7 +20,8 @@ function RegisterComplaints() {
 
   const onFinish = async (values) => {
     values.owner = user._id;
-    console.log(values);
+    values.hostel=user.hostel;
+    console.log(values)
     try {
       dispatch(ShowLoading());
       let response = await RegisterComplaint(values);

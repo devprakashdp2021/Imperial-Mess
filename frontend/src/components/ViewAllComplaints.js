@@ -3,7 +3,7 @@ import { Button, Flex, Table, message } from "antd";
 import { GetAllComplaint } from "../apicalls/complaints";
 import { HideLoading, ShowLoading } from '../redux/loadersSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { handledownVote,handleupVote } from "../apicalls/complaints";
+import { handledownVote,handleupVote,handleDelete } from "../apicalls/complaints";
 function ViewAllComplaints(props) {
   const [isLoading,setLoading]=useState(true);
   const[data,setData]=useState({});
@@ -13,8 +13,7 @@ function ViewAllComplaints(props) {
     try {
       // console.log(user);
       dispatch(ShowLoading());
-      let  response = await GetAllComplaint();
-          dispatch(HideLoading());
+      let  response = await GetAllComplaint(user._id);
           if(response.success){
               setData(response.data.map((item,index)=>({
                   key:index+1,
@@ -63,6 +62,22 @@ function ViewAllComplaints(props) {
       message.error(error.message);
     }
   }
+  async function handleResolve(complaintdetail){
+    try{
+      let response=await handleDelete({complaint:complaintdetail});
+      if(response.success){
+        await fetchallcomplaint();
+        message.info('Complaint is Resolved');
+      }else{
+        message.error('Not resolved complaint');
+      }
+  }catch(error){
+    message.error(error.message);
+  }
+}
+  useEffect(() => {
+    fetchallcomplaint();
+  }, []);
   const columns = [
     {
       title: "Complaint Type",
@@ -84,7 +99,7 @@ function ViewAllComplaints(props) {
       render: (text, record) => (
         <>
           {props.buttonFor === "chiefWarden" && (
-            <Button onClick={() => console.log(record)}>{"Resolve"}</Button>
+            <Button onClick={() =>handleResolve(record.complaintdetail)}>{"Resolve"}</Button>
           )}
 
           {props.buttonFor === "student" && (
@@ -101,11 +116,9 @@ function ViewAllComplaints(props) {
       ),
     },
   ];
-
-  useEffect(() => {
-    fetchallcomplaint();
-  }, []);
-  if (isLoading) {
+   
+  
+  if(isLoading){
     return <div> Loading....</div>;
   }
   return (
