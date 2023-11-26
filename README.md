@@ -47,6 +47,8 @@
 5. Start the frontend by running "npm satrt"
 
 **.env file structure**
-1. **mongo_url =** "your_mongodb_url"
-2. **JWTPRIVATEKEY =** "your_jwt_private_key"
-3. **SALT =** "your_salt_value"
+```
+ **mongo_url =** "your_mongodb_url"
+ **JWTPRIVATEKEY =** "your_jwt_private_key"
+ **SALT =** "your_salt_value"
+```
