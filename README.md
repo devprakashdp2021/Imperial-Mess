@@ -1,4 +1,4 @@
-# Imperial-Mess | [Live Project](https://ticket-ghar-mern.netlify.app/)
+# Imperial-Mess
 **Features of this project includes:**
 
 
