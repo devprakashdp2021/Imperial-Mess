@@ -19,8 +19,9 @@ const authUser = asyncHandler(async (req, res) => {
   });
 
   const registerUser = asyncHandler(async (req, res) => {
+    console.log("reached here")
     const {error} =validate(req.body);
-    if(error)return res.status(400).send({success:false,message:error.details[0].message});
+    if(error)return res.status(400).send({success:false,message:"some error occured"});
 
     const user=await User.findOne({gsuiteid:req.body.gsuiteid});
     if(user){
@@ -28,7 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
     const collegename=(req.body.gsuiteid.split("@")[1]).split(".")[0];
     if(collegename!="mnnit"){
-      return res.status(200).send({success:false,message:"Please Register with your college mail id"});
+      return res.status(400).send({success:false,message:"Please Register with your college mail id"});
     }
     const salt=await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword=await bcrypt.hash(req.body.password,salt);

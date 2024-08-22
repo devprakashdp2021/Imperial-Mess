@@ -1,0 +1,42 @@
+version: '3'
+services:
+  front:
+    build:
+      context: './frontend'
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    container_name: react-container
+    command: npm start
+    networks:
+      - mern-stack-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: './backend'
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    container_name: express-container
+    command: /app/node_modules/.bin/nodemon index.js
+    networks:
+      - mern-stack-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    env_file: ./backend/.env
+    environment:
+      - NODE_ENV=development
+
+networks:
+  mern-stack-network:
+volumes:
+  mongoData:
+  node_modules:
+  web_root:
+    driver: local

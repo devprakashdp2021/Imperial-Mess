@@ -1,7 +1,6 @@
 # Imperial-Mess
+
 **Features of this project includes:**
-
-
 
 1. Users can register/login themselves through thier college mail id only.
 
@@ -35,11 +34,10 @@
 
 2. They can track money spent on a particular item for a specific date range by viewing a bar graph for the same.
 
-
-*P.S:* All are divided according to their hostels.
-
+_P.S:_ All are divided according to their hostels.
 
 **How to run this project on your local system**
+
 1. Clone this repository
 2. Add an .env file into the backend directory
 3. Install all the dependencies by runnig "npm i"
@@ -47,8 +45,15 @@
 5. Start the frontend by running "npm satrt"
 
 **.env file structure**
+
 ```
  mongo_url = "your_mongodb_url"
  JWTPRIVATEKEY = "your_jwt_private_key"
  SALT = "your_salt_value"
 ```
+
+**How to run this project using docker**
+
+1. Install the docker
+2. Run the docker deamon
+3. Run the command docker-compose up --build
