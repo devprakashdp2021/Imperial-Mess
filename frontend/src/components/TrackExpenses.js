@@ -41,7 +41,6 @@ const TrackExpense = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData.itemName, formatDate(formData.startDate), formatDate(formData.endDate));
 
      const values = {itemName: formData.itemName, startDate: formatDate(formData.startDate), 
       endDate: formatDate(formData.endDate)};

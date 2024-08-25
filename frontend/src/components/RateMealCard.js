@@ -19,7 +19,6 @@ function RateMealCard(props) {
           dispatch(HideLoading());
           console.log("response",response.data.rating);
           setRating(response.data.rating);
-          // console.log("foodrating", foodrating);
           setLoading(false);
         }else{
           dispatch(HideLoading());
@@ -38,7 +37,6 @@ function RateMealCard(props) {
          console.log(response);
          if(response.success){
           dispatch(HideLoading());
-        //  setLoading(false);
         }else{
          message.error(response.message);
         }
@@ -46,9 +44,6 @@ function RateMealCard(props) {
         dispatch(HideLoading());
         message.error(error.message);
         }
-
-        // let title = props.content;
-        // console.log(title, value);
     }
     useEffect(()=>{
       FetchRatingofMeal();

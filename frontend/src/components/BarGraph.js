@@ -24,8 +24,6 @@ export default function BarGraph(props) {
     const receivedData = Array.from(props.values);
     const startDate = props.startDate;
     const endDate = props.endDate;
-    // console.log("props",props);
-    // console.log("receivedData",receivedData);
     const [isLoading,setLoading]=useState(true);
     const dispatch = useDispatch();
 
@@ -39,9 +37,7 @@ export default function BarGraph(props) {
     });
 
     const data = filteredData.map((item,index) => {
-        // console.log("item",item);
         return {
-            // key: index,
             name: item.date,
             uv: item.quantity * item.price,
         };

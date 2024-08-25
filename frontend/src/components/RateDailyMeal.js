@@ -31,7 +31,6 @@ function RateDailyMeal() {
       const response=await FetchMenu(user._id);
       if(response.success){
         dispatch(HideLoading());
-        // console.log(response.data);
         console.log("day "+weekday[new Date().getDay()]);
         const today = new Date().toLocaleString('en-us', { weekday: 'long' });
         SetBreakfast(response.data[today].Breakfast);

@@ -16,7 +16,6 @@ const ViewAllStudents = (props) => {
   const dispatch = useDispatch();
   async function fetchalluser (){
     try {
-      // console.log(user);
       dispatch(ShowLoading());
       let  response = await Getalluser(user._id);
           if(response.success){
@@ -28,7 +27,6 @@ const ViewAllStudents = (props) => {
                   type:item.isActive
               })) 
               )
-              // console.log(response.data)
           }else{
               message.error(response.message);
           }

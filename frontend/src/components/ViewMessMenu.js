@@ -23,7 +23,6 @@ const Menu = () => {
       if(response.success){
         dispatch(HideLoading());
         setMenu(response.data);
-       // console.log(response.data)
        setLoading(false);
       }else{
        message.error(response.message);

@@ -43,7 +43,6 @@ const App = () => {
   };
 
   const handleSubmit = async () => {
-    // console.log(foodItems);
     let totalAmount = calculateTotal();
     const values = {date: date,  items: foodItems, totalAmount: totalAmount};
      

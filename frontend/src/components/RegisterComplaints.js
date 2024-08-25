@@ -27,6 +27,7 @@ function RegisterComplaints() {
       let response = await RegisterComplaint(values);
       if (response.success) {
         message.success(response.message);
+        
       } else {
         message.error(response.message);
       }

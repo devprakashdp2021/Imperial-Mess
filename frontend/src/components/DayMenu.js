@@ -17,7 +17,6 @@ const DayMenu = ({ day, menu, onUpdate, shownFor }) => {
          const response=await UpdateMenu({day:day,food:menu,hostel:user.hostel});
          if(response.success){
            dispatch(HideLoading());
-          // console.log(response.data)
            setEditing(false);
            onUpdate(day, menu);
            console.log(day,menu);

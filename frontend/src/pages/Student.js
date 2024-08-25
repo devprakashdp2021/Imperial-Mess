@@ -95,7 +95,7 @@ const Student = () => {
             textAlign: "center",
           }}
         >
-          Imperial Mess ©2023 Created by Team Never_Give_Up
+          Imperial Mess ©2024 Created by Team Never_Give_Up
         </Footer>
       </Layout>
     </Layout>

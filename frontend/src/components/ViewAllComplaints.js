@@ -11,7 +11,6 @@ function ViewAllComplaints(props) {
   const {user} = useSelector((state) => state.users);
   async function fetchallcomplaint (){
     try {
-      // console.log(user);
       dispatch(ShowLoading());
       let  response = await GetAllComplaint(user._id);
           if(response.success){
@@ -25,7 +24,6 @@ function ViewAllComplaints(props) {
                   downvoteCounter: (item.downvote).length,
               })) 
               )
-              // console.log(response.data)
           }else{
             dispatch(HideLoading());
               message.error(response.message);
@@ -139,7 +137,6 @@ function ViewAllComplaints(props) {
         dataSource={data}
         pagination={false}
       />
-      {/* {console.log(data)} */}
     </>
   );
 }
