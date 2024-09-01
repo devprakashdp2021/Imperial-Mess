@@ -3,7 +3,7 @@
 
 **Features of this project includes:**
 
-1. Users can register/login themselves through thier college mail id only.
+1. Users can register/login themselves through thier college mail id only and reset their password if forgotten.
 
 2. Users are assigned different roles [Students, Chief Warden, Accountant].
 
@@ -47,10 +47,16 @@ _P.S:_ All are divided according to their hostels.
 
 **.env file structure**
 
+**Note:** adminUsername and adminPassword is used for sending the mail in case of forgot password and adminPassword can be obtained by the App Password from the adminUsername gmail account.
 ```
- mongo_url = "your_mongodb_url"
+ MONGO_USER = "your_mongodb_username"
+ MONGO_PASS = "your_mongodb_password"
+ MONGO_DATABASE = "your_mongodb_database_name"
+ PORT = "your_port_number"
  JWTPRIVATEKEY = "your_jwt_private_key"
  SALT = "your_salt_value"
+ adminUsername = "your_admin_username"
+ adminPassword = "your_admin_password"
 ```
 
 **How to run this project using docker**
