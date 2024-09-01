@@ -1,11 +1,15 @@
 import React from "react";
 import { Carousel } from "antd";
+import image1 from "../assets/image1.jpeg";
+import image2 from "../assets/image2.jpeg";
+import image3 from "../assets/image3.jpeg";
+import image4 from "../assets/image4.jpeg";
 
 const contentStyle = {
-  // height: '350px',
-  width: "100%",
-  height: "auto",
+  height: '325px',
+  width: "75%",
   color: "#fff",
+  margin: "auto",
   lineHeight: "160px",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
@@ -15,37 +19,25 @@ const contentStyle = {
 
 const imageArray = [
   {
-    url: "https://www.india.gov.in/sites/upload_files/npi/files/upaj.jpg",
+    url: image1,
     description: "Image 1",
   },
   {
-    url: "https://www.india.gov.in/sites/upload_files/npi/files/upaj.jpg",
+    url: image2,
     description: "Image 1",
   },
   {
-    url: "https://www.india.gov.in/sites/upload_files/npi/files/spotlights/pm_vishwakarma.jpg",
+    url: image3,
     description: "Image 3",
   },
   {
-    url: "https://www.india.gov.in/sites/upload_files/npi/files/spotlights/pm_vishwakarma.jpg",
+    url: image4,
     description: "Image 4",
   },
 ];
 
 const Slide = () => (
   <Carousel autoplay>
-    {/* <div>
-      <h3 style={contentStyle}>1</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>2</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>3</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>4</h3>
-    </div> */}
     {imageArray.map((image) => (
       <div>
         <img src={image.url} alt={image.description} style={contentStyle} />
