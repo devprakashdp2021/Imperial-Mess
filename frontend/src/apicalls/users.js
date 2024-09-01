@@ -20,12 +20,14 @@ export const RegisterUser = async (payload) => {
 //Login a user
 export const LoginUser = async (payload) => {
   try {
+    console.log(payload);
     const response = await axios.post("/users/login", payload, config);
     return response.data;
   } catch (error) {
     return error.message;
   }
 };
+
 //get current user
 export const GetCurrentUser = async() => {
     try {
@@ -35,6 +37,7 @@ export const GetCurrentUser = async() => {
         return error.message;
     }
 }
+
 export const Getalluser=async(id)=>{
     try{
         const response=await axios.get(`/users/get-all-user/${id}`,config);
@@ -43,6 +46,7 @@ export const Getalluser=async(id)=>{
         return error.message;
     }
 }
+
 export const Blockuser=async(id)=>{
     try{
         const response=await axios.put(`/users/block-user/${id}`,config);
@@ -51,3 +55,24 @@ export const Blockuser=async(id)=>{
         return error.message;
     }
 }
+
+export const ForgotPasswordUser = async (payload) => {
+  try {
+    console.log(payload);
+    const response = await axios.post("/users/forgot-password", payload, config);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const ResetPasswordUser = async (payload, id, token) => {
+  try {
+    console.log(payload);
+    console.log("token, "+ token);
+    const response = await axios.post(`/users/reset-password/${id}/${token}`, payload, config);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};

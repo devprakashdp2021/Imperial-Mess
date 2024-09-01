@@ -7,16 +7,18 @@ import './home.css';
 
 function Home() {
   const [isAuthenticated, setAuthenticated] = useState(true);
+ 
   function handleAuthentication() {
     setAuthenticated(!isAuthenticated);
   }
+ 
   return (
     <div className='home'>
       <h1 style={{fontSize:30, margin:"0px", fontFamily: 'Dancing Script'}}>Imperial Mess</h1>
      <Slide />
      <div style={{margin: "10px auto",width:"50%"}}>
       {
-        isAuthenticated?<Login handleRegisterNow={handleAuthentication}/>:<Register handleLoginNow={handleAuthentication}/>
+        isAuthenticated?<Login handleRegisterNow={handleAuthentication} />:<Register handleLoginNow={handleAuthentication}/>
       }
      </div>
     </div>

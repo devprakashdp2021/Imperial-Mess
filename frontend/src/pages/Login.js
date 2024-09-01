@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Button, Form, Input, Select, message } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../apicalls/users";
 import { useDispatch } from "react-redux";
@@ -43,6 +43,7 @@ const Login = ({ handleRegisterNow }) => {
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
+      console.log(values);
       const response = await LoginUser(values);
       if (response.success) {
         message.success(response.message);
@@ -52,6 +53,7 @@ const Login = ({ handleRegisterNow }) => {
       } else {
         message.error(response.message);
       }
+      dispatch(HideLoading());
     } catch (error) {
       dispatch(HideLoading());
       message.error(error.message);
@@ -67,7 +69,7 @@ const Login = ({ handleRegisterNow }) => {
     <Form
       {...formItemLayout}
       form={form}
-      name="register"
+      name="login"
       onFinish={onFinish}
       style={{
         maxWidth: 600,
@@ -78,10 +80,6 @@ const Login = ({ handleRegisterNow }) => {
         name="gsuiteid"
         label="G-suite ID"
         rules={[
-          // {
-          //   type: 'email',
-          //   message: 'The input is not valid g-suite id',
-          // },
           {
             required: true,
             message: "Please input your g-suite id!",
@@ -106,6 +104,11 @@ const Login = ({ handleRegisterNow }) => {
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
+      <div style={{ textAlign: "right", marginTop: "8px" }}>
+            <Link to="/forgot-password">
+              Forgot password?
+            </Link>
+          </div>
         <Button type="primary" htmlType="submit">
           Login
         </Button>
