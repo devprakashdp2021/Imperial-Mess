@@ -9,6 +9,8 @@
 
 3. Blocked students are not allowed to login until they are unblocked again.
 
+4. Users receive email notifications when their accounts are blocked or unblocked. Additionally, they are notified via email when they register a complaint, and they receive updates when the complaint is resolved.
+
 **Students features:**
 
 1. They can register a complaint.
