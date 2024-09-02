@@ -2,8 +2,9 @@ const asyncHandler = require("express-async-handler");
 const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const { sendMail } = require("../utils/mailer");
+const blockStudentTemplate = require("../utils/blockStudnetTemplate");
+const unblockStudentTemplate = require("../utils/unblockStudnetTemplate");
 
 const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ gsuiteid: req.body.gsuiteid });
@@ -96,20 +97,21 @@ const Blockuser = asyncHandler(async (req, res) => {
   try {
     const userid = req.params.id;
     const user = await User.findById(userid);
-    req.body.gsuiteid = user.gsuiteid;
+    const mail = user.gsuiteid;
 
     if (user.isActive) {
       user.isActive = false;
 
       const subject = "Account Blocked || Imperial Mess";
-      const text = `Dear ${user.name},\n\nYour account has been blocked by the warden sir. Please contact warden sir for more information.\n\nBest Regards,\nWarden Office`;
-      sendMail(req, res, subject, text);
+      const html = blockStudentTemplate(user);
+      sendMail(mail, subject, "", html);
+      
     } else {
       user.isActive = true;
 
       const subject = "Account Unblocked || Imperial Mess";
-      const text = `Dear ${user.name},\n\nYour account has been unblocked by the warden sir. You can now access your account.\n\n Please follow this link to login: http://localhost:3000/login\n\nBest Regards,\nWarden Office`;
-      sendMail(req, res, subject, text);
+      const html = unblockStudentTemplate(user);
+      sendMail(mail, subject, "", html);
     }
     user.save();
 

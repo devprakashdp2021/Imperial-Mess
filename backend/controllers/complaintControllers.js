@@ -1,9 +1,19 @@
 const asyncHandler = require("express-async-handler");
 const Complaint = require("../models/complaintmodel");
 const { User, validate } = require("../models/user");
+const complaintResolvedTemplate = require("../utils/complaintResolvedTemplate");
+const { sendMail } = require("../utils/mailer");
+const complaintRegisteredTemplate = require("../utils/complaintRegisteredTemplate");
+
 const RegisterComplaint = asyncHandler(async (req, res) => {
   try {
     const newComplaint = new Complaint(req.body);
+    const user = await User.findById(newComplaint.owner);
+    const subject = "Complaint Registered || Imperial Mess";
+    const mail = user.gsuiteid;
+    const html = complaintRegisteredTemplate(newComplaint, user);
+    await sendMail(mail, subject, "", html);
+
     await newComplaint.save();
     res.send({
       success: true,
@@ -37,13 +47,21 @@ const GetetallComplaint = asyncHandler(async (req, res) => {
 });
 const DeleteComplaint = asyncHandler(async (req, res) => {
   try {
+    const complaint = req.body;
+    const mail = complaint.owner.gsuiteid;
+    const subject = "Complaint Resolved";
     const id = req.params.id;
+
     await Complaint.findByIdAndDelete(id);
+    const html = complaintResolvedTemplate(complaint);
+    await sendMail(mail, subject, "", html);
+
     res.send({
       success: true,
-      message: "Complaint delete successfully",
+      message: "Complaint deleted successfully",
     });
   } catch (error) {
+    console.error("Error in DeleteComplaint:", error);
     res.send({
       success: false,
       message: error.message,
@@ -54,8 +72,6 @@ const voteComplaint = asyncHandler(async (req, res) => {
   const id = req.body.id;
   console.log(id);
   const complaintId = req.params.complaintId;
-  // console.log(complaintId);
-  // console.log(id);
   try {
     await Complaint.findByIdAndUpdate(complaintId, {
       $addToSet: { vote: id },
@@ -63,7 +79,7 @@ const voteComplaint = asyncHandler(async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      message: "You successfully vote",
+      message: "You have successfully voted",
     });
   } catch (err) {
     res.send({
@@ -82,7 +98,7 @@ const UnvoteComplaint = asyncHandler(async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      message: "You successfully unvote",
+      message: "You have successfully unvoted",
     });
   } catch (err) {
     res.send({

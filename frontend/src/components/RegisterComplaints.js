@@ -20,14 +20,13 @@ function RegisterComplaints() {
 
   const onFinish = async (values) => {
     values.owner = user._id;
-    values.hostel=user.hostel;
-    console.log(values)
+    values.hostel = user.hostel;
+    console.log(values);
     try {
       dispatch(ShowLoading());
       let response = await RegisterComplaint(values);
       if (response.success) {
         message.success(response.message);
-        
       } else {
         message.error(response.message);
       }
@@ -37,7 +36,7 @@ function RegisterComplaints() {
       message.error(error.message);
     }
   };
-  
+
   function handleComplaintType(value) {
     console.log(value);
     setComplaintType(value);
@@ -70,10 +69,10 @@ function RegisterComplaints() {
             onChange={handleComplaintType}
             value={complaintType}
           >
-            <Option value="mess" name="mess">
+            <Option value="Mess Problem" name="mess">
               Mess Problem
             </Option>
-            <Option value="hostel" name="hostel">
+            <Option value="Hostel Problem" name="hostel">
               Hostel Problem
             </Option>
           </Select>

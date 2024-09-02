@@ -9,14 +9,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendMail = (req, res, subject, text) => {
-  const to = req.body.gsuiteid;
+const sendMail = async (mail, subject, text, html) => {
 
   var mailOptions = {
     from: process.env.adminUsername,
-    to: to,
+    to: mail,
     subject: subject,
     text: text,
+    html: html
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
