@@ -3,8 +3,10 @@ const MessDailyExpense = require("../models/messDailyExpense");
 
 const AddMessDailyExpense = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const messDailyExpense = await MessDailyExpense.findOne({ date: req.body.date });
-  if(messDailyExpense){
+  const messDailyExpense = await MessDailyExpense.findOne({
+    date: req.body.date,
+  });
+  if (messDailyExpense) {
     //update messItem information array for already existing messItem
     messDailyExpense.addInformation({
       id: req.body.items[0].id,
@@ -12,9 +14,14 @@ const AddMessDailyExpense = asyncHandler(async (req, res) => {
       quantity: req.body.items[0].quantity,
       price: req.body.items[0].price,
       totalAmount: req.body.totalAmount,
-    })
-    
-    return res.status(200).send({success:true,message:"Mess Daily Expense added successfully"})
+    });
+
+    return res
+      .status(200)
+      .send({
+        success: true,
+        message: "Mess Daily Expense added successfully",
+      });
   }
 
   try {
@@ -35,7 +42,9 @@ const AddMessDailyExpense = asyncHandler(async (req, res) => {
 
 const GetMessDailyExpense = asyncHandler(async (req, res) => {
   try {
-    const messDailyExpense = await MessDailyExpense.findOne({ date: req.body.date });
+    const messDailyExpense = await MessDailyExpense.findOne({
+      date: req.body.date,
+    });
     res.send({
       success: true,
       message: "Mess Daily Expense fetched successfully",

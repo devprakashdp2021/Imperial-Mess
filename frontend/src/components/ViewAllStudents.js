@@ -1,59 +1,63 @@
-import { SearchOutlined } from '@ant-design/icons';
-import React, { useRef, useState,useEffect } from 'react';
-import Highlighter from 'react-highlight-words';
-import { Button, Input, Space, Table ,message} from 'antd';
-import { HideLoading, ShowLoading } from '../redux/loadersSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Blockuser, Getalluser } from '../apicalls/users';
+import { SearchOutlined } from "@ant-design/icons";
+import React, { useRef, useState, useEffect } from "react";
+import Highlighter from "react-highlight-words";
+import { Button, Input, Space, Table, message } from "antd";
+import { HideLoading, ShowLoading } from "../redux/loadersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Blockuser, Getalluser } from "../apicalls/users";
 
 const ViewAllStudents = (props) => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
-  const [isLoading,setLoading]=useState(true);
-  const {user} = useSelector((state) => state.users);
-  const[data,setData]=useState({});
+  const [isLoading, setLoading] = useState(true);
+  const { user } = useSelector((state) => state.users);
+  const [data, setData] = useState({});
   const dispatch = useDispatch();
-  async function fetchalluser (){
+  async function fetchalluser() {
     try {
       dispatch(ShowLoading());
-      let  response = await Getalluser(user._id);
-          if(response.success){
-              setData(response.data.map((item,index)=>({
-                  key:index+1,
-                  name:item.name,
-                  gsuiteid:item.gsuiteid,
-                  id:item._id,
-                  type:item.isActive
-              })) 
-              )
-          }else{
-              message.error(response.message);
-          }
-          setLoading(false);
-          dispatch(HideLoading());
-      } catch (error) {
-          dispatch(HideLoading());
-          message.error(error.message);
+      let response = await Getalluser(user._id);
+      if (response.success) {
+        setData(
+          response.data.map((item, index) => ({
+            key: index + 1,
+            name: item.name,
+            gsuiteid: item.gsuiteid,
+            id: item._id,
+            type: item.isActive,
+          }))
+        );
+      } else {
+        message.error(response.message);
       }
-  }
-   const handleBlock=async(event)=>{
-    const id=event.id;
-    
-    console.log(event);
-    try{
-       dispatch(ShowLoading);
-       let response=await Blockuser(id);
-       if(response.success){
-        await fetchalluser()
-        message.info(`${event.name} has been ${event.type?"Blocked":"Unblocked"}`);
-       }else{
-        message.error('An error occurred while Blocking')
-       }
-    }catch(error){
+      setLoading(false);
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
       message.error(error.message);
     }
   }
+  const handleBlock = async (event) => {
+    const id = event.id;
+
+    console.log(event);
+    try {
+      dispatch(ShowLoading);
+      let response = await Blockuser(id);
+      if (response.success) {
+        await fetchalluser();
+        message.info(
+          `${event.name} has been ${event.type ? "Blocked" : "Unblocked"}`
+        );
+        
+      } else {
+        message.error("An error occurred while Blocking");
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -188,7 +192,9 @@ const ViewAllStudents = (props) => {
       render: (text, record) => (
         <>
           {props.buttonFor === "chiefWarden" && (
-            <Button onClick={()=>handleBlock(record)}>{record.type===true?"Block":"Unblock"}</Button>
+            <Button onClick={() => handleBlock(record)}>
+              {record.type === true ? "Block" : "Unblock"}
+            </Button>
           )}
         </>
       ),
@@ -197,9 +203,9 @@ const ViewAllStudents = (props) => {
   useEffect(() => {
     fetchalluser();
   }, []);
-  if(isLoading){
+  if (isLoading) {
     return <div> Loading....</div>;
   }
-  return <Table columns={columns} dataSource={data} pagination={false}/>;
+  return <Table columns={columns} dataSource={data} pagination={false} />;
 };
 export default ViewAllStudents;

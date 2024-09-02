@@ -6,14 +6,16 @@ const messItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    information:{
-        type: [{
-            date: String,
-            quantity: Number,
-            price: Number,
-        }],
-        required: true,
-    }
+    information: {
+      type: [
+        {
+          date: String,
+          quantity: Number,
+          price: Number,
+        },
+      ],
+      required: true,
+    },
   },
   { timestamps: true }
 );

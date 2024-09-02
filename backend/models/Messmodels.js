@@ -1,55 +1,55 @@
 const mongoose = require("mongoose");
-
+const mealFild = { type: String, default: "please enter mess item" };
 const messSchema = new mongoose.Schema(
-    {
-      Monday: {
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"},
-      },
-      Tuesday: {
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      Wednesday: {
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      Thrusday: {
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      Friday:{
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      Saturday:{
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      Sunday:{
-        Breakfast:{type:String,default:"please enter mess item"},
-        Lunch:{type:String,default:"please enter mess item"},
-        Snack:{type:String,default:"please enter mess item"},
-        Dinner:{type:String,default:"please enter mess item"}
-      },
-      hostel:{
-        type:String
-      },
+  {
+    Monday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
     },
-    {timestamps: true}
+    Tuesday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    Wednesday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    Thrusday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    Friday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    Saturday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    Sunday: {
+      Breakfast: mealFild,
+      Lunch: mealFild,
+      Snack: mealFild,
+      Dinner: mealFild,
+    },
+    hostel: {
+      type: String,
+    },
+  },
+  { timestamps: true }
 );
 
-const Mess=mongoose.model("mess",messSchema);
-module.exports=Mess;
+const Mess = mongoose.model("mess", messSchema);
+module.exports = Mess;

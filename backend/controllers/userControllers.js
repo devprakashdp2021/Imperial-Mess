@@ -3,6 +3,7 @@ const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const { sendMail } = require("../utils/mailer");
 
 const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ gsuiteid: req.body.gsuiteid });
@@ -95,13 +96,23 @@ const Blockuser = asyncHandler(async (req, res) => {
   try {
     const userid = req.params.id;
     const user = await User.findById(userid);
+    req.body.gsuiteid = user.gsuiteid;
+
     if (user.isActive) {
       user.isActive = false;
+
+      const subject = "Account Blocked || Imperial Mess";
+      const text = `Dear ${user.name},\n\nYour account has been blocked by the warden sir. Please contact warden sir for more information.\n\nBest Regards,\nWarden Office`;
+      sendMail(req, res, subject, text);
     } else {
       user.isActive = true;
+
+      const subject = "Account Unblocked || Imperial Mess";
+      const text = `Dear ${user.name},\n\nYour account has been unblocked by the warden sir. You can now access your account.\n\n Please follow this link to login: http://localhost:3000/login\n\nBest Regards,\nWarden Office`;
+      sendMail(req, res, subject, text);
     }
     user.save();
-    console.log(user);
+
     res.send({
       success: true,
       message: "User Blocked successfully",
@@ -150,37 +161,15 @@ const ForgotPassword = asyncHandler(async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWTPRIVATEKEY, {
       expiresIn: "1d",
     });
-    console.log("token generated")
 
-    var transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.adminUsername,
-        pass: process.env.adminPassword,
-      },
-    });
-
-    var mailOptions = {
-      from: process.env.adminUsername,
-      to: req.body.gsuiteid,
-      subject: "Reset your Password",
-      text:  `http://localhost:3000/reset-password/${user._id}/${token}`,
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    });
-
+    const subject = "Reset your Password";
+    const text = `http://localhost:3000/reset-password/${user._id}/${token}`;
+    sendMail(req, res, subject, text);
     res.send({
       success: true,
       message: "Please check your mail to reset your password!",
       data: token,
     });
-    console.log("Mail sent successfully");
   } catch (error) {
     console.log(error.message);
     res.send({
@@ -191,7 +180,6 @@ const ForgotPassword = asyncHandler(async (req, res) => {
 });
 
 const ResetPassword = asyncHandler(async (req, res) => {
-  console.log("reached resetpassword controller");
   try {
     const { id, token } = req.params;
     console.log(token);
@@ -235,5 +223,5 @@ module.exports = {
   Blockuser,
   GetallUser,
   ForgotPassword,
-  ResetPassword
+  ResetPassword,
 };

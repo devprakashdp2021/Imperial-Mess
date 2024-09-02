@@ -36,7 +36,6 @@ messDailyExpenseSchema.methods.addInformation = function (newInfo) {
   return this.save();
 };
 
-
 const MessDailyExpense = mongoose.model(
   "MessDailyExpense",
   messDailyExpenseSchema

@@ -29,37 +29,41 @@ export const LoginUser = async (payload) => {
 };
 
 //get current user
-export const GetCurrentUser = async() => {
-    try {
-        const response = await axios.get("/users/get-current-user",config);
-        return response.data;
-    } catch (error) {
-        return error.message;
-    }
-}
+export const GetCurrentUser = async () => {
+  try {
+    const response = await axios.get("/users/get-current-user", config);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
 
-export const Getalluser=async(id)=>{
-    try{
-        const response=await axios.get(`/users/get-all-user/${id}`,config);
-        return response.data;
-    }catch(error){
-        return error.message;
-    }
-}
+export const Getalluser = async (id) => {
+  try {
+    const response = await axios.get(`/users/get-all-user/${id}`, config);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
 
-export const Blockuser=async(id)=>{
-    try{
-        const response=await axios.put(`/users/block-user/${id}`,config);
-        return response.data;
-    }catch(error){
-        return error.message;
-    }
-}
+export const Blockuser = async (id) => {
+  try {
+    const response = await axios.put(`/users/block-user/${id}`, config);
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 export const ForgotPasswordUser = async (payload) => {
   try {
     console.log(payload);
-    const response = await axios.post("/users/forgot-password", payload, config);
+    const response = await axios.post(
+      "/users/forgot-password",
+      payload,
+      config
+    );
     return response.data;
   } catch (error) {
     return error.message;
@@ -69,8 +73,12 @@ export const ForgotPasswordUser = async (payload) => {
 export const ResetPasswordUser = async (payload, id, token) => {
   try {
     console.log(payload);
-    console.log("token, "+ token);
-    const response = await axios.post(`/users/reset-password/${id}/${token}`, payload, config);
+    console.log("token, " + token);
+    const response = await axios.post(
+      `/users/reset-password/${id}/${token}`,
+      payload,
+      config
+    );
     return response.data;
   } catch (error) {
     return error.message;
