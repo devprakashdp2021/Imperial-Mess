@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Space, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { RegisterComplaint } from "../apicalls/complaints";
 import { HideLoading, ShowLoading } from "../redux/loadersSlice";
+
 const { Option } = Select;
 const formItemLayout = {
   labelCol: {
@@ -37,10 +38,10 @@ function RegisterComplaints() {
     }
   };
 
-  function handleComplaintType(value) {
-    console.log(value);
+  const handleComplaintType = (value) => {
+    console.log('Selected complaint type:', value);
     setComplaintType(value);
-  }
+  };
 
   return (
     <div>
@@ -48,72 +49,46 @@ function RegisterComplaints() {
         name="validate_other"
         {...formItemLayout}
         onFinish={onFinish}
-        style={{
-          maxWidth: 600,
-          //   border: "1px solid red",
-        }}
+        style={{ maxWidth: 600 }}
       >
         <Form.Item
           name="complaintType"
           label="Complaint Type"
           hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Please select your complaint type!",
-            },
-          ]}
+          rules={[{ required: true, message: "Please select your complaint type!" }]}
         >
           <Select
             placeholder="Please select a complaint type"
             onChange={handleComplaintType}
             value={complaintType}
           >
-            <Option value="Mess Problem" name="mess">
-              Mess Problem
-            </Option>
-            <Option value="Hostel Problem" name="hostel">
-              Hostel Problem
-            </Option>
+            <Option value="Mess Problem">Mess Problem</Option>
+            <Option value="Hostel Problem">Hostel Problem</Option>
           </Select>
         </Form.Item>
 
-        {complaintType === "mess" && (
+        {complaintType === "Mess Problem" && (
           <Form.Item
             name="complaint"
             label="Complaint"
             hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Please select your complaint!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please select your complaint!" }]}
           >
             <Select placeholder="Please select a complaint">
               <Option value="food-quality">Food Quality</Option>
               <Option value="mess-timing">Mess Timing</Option>
-              <Option value="cleanliness-of-utensils">
-                Cleanliness of Utensils
-              </Option>
-              <Option value="behaviour-of-mess-worker">
-                Behaviour of Mess Worker
-              </Option>
+              <Option value="cleanliness-of-utensils">Cleanliness of Utensils</Option>
+              <Option value="behaviour-of-mess-worker">Behaviour of Mess Worker</Option>
             </Select>
           </Form.Item>
         )}
 
-        {complaintType === "hostel" && (
+        {complaintType === "Hostel Problem" && (
           <Form.Item
             name="complaint"
             label="Complaint"
             hasFeedback
-            rules={[
-              {
-                required: true,
-                message: "Please select your complaint!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please select your complaint!" }]}
           >
             <Select placeholder="Please select a complaint">
               <Option value="internet-problem">Internet Problem</Option>
@@ -127,31 +102,24 @@ function RegisterComplaints() {
         <Form.Item
           name="description"
           label="Description"
-          rules={[
-            {
-              required: true,
-              message: "Please input description",
-            },
-          ]}
+          rules={[{ required: true, message: "Please input description" }]}
         >
-          <Input.TextArea showCount rows="8" maxLength={500} />
+          <Input.TextArea showCount rows={8} maxLength={500} />
         </Form.Item>
 
         <Form.Item
-          wrapperCol={{
-            span: 12,
-            offset: 6,
-          }}
+          wrapperCol={{ span: 12, offset: 6 }}
         >
           <Space>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
-            <Button htmlType="reset">reset</Button>
+            <Button htmlType="reset">Reset</Button>
           </Space>
         </Form.Item>
       </Form>
     </div>
   );
 }
+
 export default RegisterComplaints;

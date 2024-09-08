@@ -10,8 +10,9 @@ const theatresRoute = require("./routes/complaintsRoutes.js");
 const messRoutes = require("./routes/messRoutes.js");
 const messDailyExpenseRoutes = require("./routes/messDailyExpenseRoutes.js");
 const messItemRoutes = require("./routes/messItemRoutes.js");
-
+const { scheduleDailyTask } = require('./utils/Reminder');
 const foodratingRoutes = require("./routes/FoodratingRoutes.js");
+scheduleDailyTask();
 app.use("/api/users", userRoutes);
 app.use("/api/complaints", theatresRoute);
 app.use("/api/mess", messRoutes);
