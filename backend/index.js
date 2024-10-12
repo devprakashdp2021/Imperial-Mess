@@ -1,7 +1,9 @@
 const express = require(`express`);
 const app = express();
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+    origin: ['https://imperial-mess.netlify.app', 'http://localhost:3000']
+}));
 app.use(express.json());
 require("dotenv").config();
 const dbConfig = require("./config/dbConfig");
