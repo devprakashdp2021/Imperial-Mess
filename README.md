@@ -45,7 +45,7 @@ _P.S:_ All are divided according to their hostels.
 2. Add an .env file into the backend directory
 3. Install all the dependencies by runnig "npm i"
 4. Start the backend server by runnig "nodemon index.js"
-5. Start the frontend by running "npm satrt"
+5. Start the frontend by running "npm start" after installing running "npm i" in the frontend directory.
 
 **.env file structure**
 
