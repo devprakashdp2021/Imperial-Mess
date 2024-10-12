@@ -166,6 +166,7 @@ const ForgotPassword = asyncHandler(async (req, res) => {
 
     const subject = "Reset your Password";
     const text = `https://imperial-mess.netlify.app/login/reset-password/${user._id}/${token}`;
+    console.log("Reg: ", req);
     sendMail(req.mail, subject, text, "");
     res.send({
       success: true,
